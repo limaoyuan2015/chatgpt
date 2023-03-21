@@ -18,33 +18,32 @@
             <artifactId>chatgpt-client</artifactId>
         </dependency>
         <!-- COLA components -->
-
         <dependency>
-            <groupId>com.shopoo</groupId>
-            <artifactId>shopoo-component-domain-starter</artifactId>
+            <groupId>com.szmengran</groupId>
+            <artifactId>cola-component-domain-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.shopoo</groupId>
-            <artifactId>shopoo-component-exception</artifactId>
+            <groupId>com.szmengran</groupId>
+            <artifactId>cola-component-exception</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.shopoo</groupId>
-            <artifactId>shopoo-component-base</artifactId>
+            <groupId>com.szmengran</groupId>
+            <artifactId>cola-component-base</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
         <!-- COLA components End-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <!-- COLA components End-->
+        
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
     </dependencies>
 </project>

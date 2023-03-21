@@ -1,6 +1,6 @@
 package com.szmengran.chatgpt.domain.customer;
 
-import com.alibaba.cola.domain.Entity;
+import com.szmengran.cola.domain.Entity;
 import lombok.Data;
 
 @Data

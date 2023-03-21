@@ -23,8 +23,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.shopoo</groupId>
-            <artifactId>shopoo-component-catchlog-starter</artifactId>
+            <groupId>com.szmengran</groupId>
+            <artifactId>cola-component-catchlog-starter</artifactId>
         </dependency>
 
         <!-- JSR 303 Validation -->

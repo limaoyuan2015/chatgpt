@@ -1,111 +1,131 @@
 package com.szmengran.chatgpt.openai;
 
-import com.theokanning.openai.completion.CompletionRequest;
-import com.theokanning.openai.completion.CompletionResult;
-import com.theokanning.openai.completion.chat.ChatCompletionRequest;
-import com.theokanning.openai.completion.chat.ChatCompletionResult;
-import com.theokanning.openai.edit.EditRequest;
-import com.theokanning.openai.edit.EditResult;
-import com.theokanning.openai.embedding.EmbeddingRequest;
-import com.theokanning.openai.embedding.EmbeddingResult;
-import com.theokanning.openai.engine.Engine;
-import com.theokanning.openai.file.File;
-import com.theokanning.openai.finetune.FineTuneEvent;
-import com.theokanning.openai.finetune.FineTuneRequest;
-import com.theokanning.openai.finetune.FineTuneResult;
-import com.theokanning.openai.image.CreateImageRequest;
-import com.theokanning.openai.image.ImageResult;
-import com.theokanning.openai.model.Model;
-import com.theokanning.openai.moderation.ModerationRequest;
-import com.theokanning.openai.moderation.ModerationResult;
-import io.reactivex.Single;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.http.*;
+import com.szmengran.chatgpt.dto.DeleteResult;
+import com.szmengran.chatgpt.dto.OpenAiResponse;
+import com.szmengran.chatgpt.dto.completion.CompletionRequest;
+import com.szmengran.chatgpt.dto.completion.CompletionResult;
+import com.szmengran.chatgpt.dto.completion.chat.ChatCompletionRequest;
+import com.szmengran.chatgpt.dto.completion.chat.ChatCompletionResult;
+import com.szmengran.chatgpt.dto.edit.EditRequest;
+import com.szmengran.chatgpt.dto.edit.EditResult;
+import com.szmengran.chatgpt.dto.embedding.EmbeddingRequest;
+import com.szmengran.chatgpt.dto.embedding.EmbeddingResult;
+import com.szmengran.chatgpt.dto.engine.Engine;
+import com.szmengran.chatgpt.dto.file.File;
+import com.szmengran.chatgpt.dto.finetune.FineTuneEvent;
+import com.szmengran.chatgpt.dto.finetune.FineTuneRequest;
+import com.szmengran.chatgpt.dto.finetune.FineTuneResult;
+import com.szmengran.chatgpt.dto.image.CreateImageRequest;
+import com.szmengran.chatgpt.dto.image.ImageResult;
+import com.szmengran.chatgpt.dto.model.Model;
+import com.szmengran.chatgpt.dto.moderation.ModerationRequest;
+import com.szmengran.chatgpt.dto.moderation.ModerationResult;
+import com.szmengran.cola.dto.SingleResponse;
+import feign.Param;
+import feign.RequestInterceptor;
+import feign.RequestTemplate;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+@FeignClient(name="openai", url="https://api.openai.com/")
 public interface OpenAiApi {
-
-    @GET("v1/models")
-    Single<OpenAiResponse<Model>> listModels();
-
-    @GET("/v1/models/{model_id}")
-    Single<Model> getModel(@Path("model_id") String modelId);
-
-    @POST("/v1/completions")
-    Single<CompletionResult> createCompletion(@Body CompletionRequest request);
     
-    @POST("/v1/chat/completions")
-    Single<ChatCompletionResult> createChatCompletion(@Body ChatCompletionRequest request);
+    @Bean
+    default RequestInterceptor requestInterceptor() {
+        return new RequestInterceptor() {
+            @Override
+            public void apply(RequestTemplate template) {
+                // 添加拦截器逻辑
+                System.out.println("。。。");
+            }
+        };
+    }
+    
+    @GetMapping("v1/models")
+    SingleResponse<SingleResponse<Model>> listModels();
+
+    @GetMapping("/v1/models/{model_id}")
+    SingleResponse<Model> getModel(@Param("model_id") String modelId);
+
+    @PostMapping("/v1/completions")
+    SingleResponse<CompletionResult> createCompletion(@RequestBody CompletionRequest request);
+    
+    @PostMapping("/v1/chat/completions")
+    SingleResponse<ChatCompletionResult> createChatCompletion(@RequestBody ChatCompletionRequest request);
 
     @Deprecated
-    @POST("/v1/engines/{engine_id}/completions")
-    Single<CompletionResult> createCompletion(@Path("engine_id") String engineId, @Body CompletionRequest request);
+    @PostMapping("/v1/engines/{engine_id}/completions")
+    SingleResponse<CompletionResult> createCompletion(@Param("engine_id") String engineId, @RequestBody CompletionRequest request);
 
-    @POST("/v1/edits")
-    Single<EditResult> createEdit(@Body EditRequest request);
-
-    @Deprecated
-    @POST("/v1/engines/{engine_id}/edits")
-    Single<EditResult> createEdit(@Path("engine_id") String engineId, @Body EditRequest request);
-
-    @POST("/v1/embeddings")
-    Single<EmbeddingResult> createEmbeddings(@Body EmbeddingRequest request);
+    @PostMapping("/v1/edits")
+    SingleResponse<EditResult> createEdit(@RequestBody EditRequest request);
 
     @Deprecated
-    @POST("/v1/engines/{engine_id}/embeddings")
-    Single<EmbeddingResult> createEmbeddings(@Path("engine_id") String engineId, @Body EmbeddingRequest request);
+    @PostMapping("/v1/engines/{engine_id}/edits")
+    SingleResponse<EditResult> createEdit(@Param("engine_id") String engineId, @RequestBody EditRequest request);
 
-    @GET("/v1/files")
-    Single<OpenAiResponse<File>> listFiles();
-
-    @Multipart
-    @POST("/v1/files")
-    Single<File> uploadFile(@Part("purpose") RequestBody purpose, @Part MultipartBody.Part file);
-
-    @DELETE("/v1/files/{file_id}")
-    Single<DeleteResult> deleteFile(@Path("file_id") String fileId);
-
-    @GET("/v1/files/{file_id}")
-    Single<File> retrieveFile(@Path("file_id") String fileId);
-
-    @POST("/v1/fine-tunes")
-    Single<FineTuneResult> createFineTune(@Body FineTuneRequest request);
-
-    @POST("/v1/completions")
-    Single<CompletionResult> createFineTuneCompletion(@Body CompletionRequest request);
-
-    @GET("/v1/fine-tunes")
-    Single<OpenAiResponse<FineTuneResult>> listFineTunes();
-
-    @GET("/v1/fine-tunes/{fine_tune_id}")
-    Single<FineTuneResult> retrieveFineTune(@Path("fine_tune_id") String fineTuneId);
-
-    @POST("/v1/fine-tunes/{fine_tune_id}/cancel")
-    Single<FineTuneResult> cancelFineTune(@Path("fine_tune_id") String fineTuneId);
-
-    @GET("/v1/fine-tunes/{fine_tune_id}/events")
-    Single<OpenAiResponse<FineTuneEvent>> listFineTuneEvents(@Path("fine_tune_id") String fineTuneId);
-
-    @DELETE("/v1/models/{fine_tune_id}")
-    Single<DeleteResult> deleteFineTune(@Path("fine_tune_id") String fineTuneId);
-
-    @POST("/v1/images/generations")
-    Single<ImageResult> createImage(@Body CreateImageRequest request);
-
-    @POST("/v1/images/edits")
-    Single<ImageResult> createImageEdit(@Body RequestBody requestBody);
-
-    @POST("/v1/images/variations")
-    Single<ImageResult> createImageVariation(@Body RequestBody requestBody);
-
-    @POST("/v1/moderations")
-    Single<ModerationResult> createModeration(@Body ModerationRequest request);
+    @PostMapping("/v1/embeddings")
+    SingleResponse<EmbeddingResult> createEmbeddings(@RequestBody EmbeddingRequest request);
 
     @Deprecated
-    @GET("v1/engines")
-    Single<OpenAiResponse<Engine>> getEngines();
+    @PostMapping("/v1/engines/{engine_id}/embeddings")
+    SingleResponse<EmbeddingResult> createEmbeddings(@Param("engine_id") String engineId, @RequestBody EmbeddingRequest request);
+
+    @GetMapping("/v1/files")
+    SingleResponse<OpenAiResponse<File>> listFiles();
+
+//    @Multipart
+//    @PostMapping("/v1/files")
+//    SingleResponse<File> uploadFile(@Param("purpose") RequestBody purpose, @Part MultipartBody.Part file);
+
+    @DeleteMapping("/v1/files/{file_id}")
+    SingleResponse<DeleteResult> deleteFile(@Param("file_id") String fileId);
+
+    @GetMapping("/v1/files/{file_id}")
+    SingleResponse<File> retrieveFile(@Param("file_id") String fileId);
+
+    @PostMapping("/v1/fine-tunes")
+    SingleResponse<FineTuneResult> createFineTune(@RequestBody FineTuneRequest request);
+
+    @PostMapping("/v1/completions")
+    SingleResponse<CompletionResult> createFineTuneCompletion(@RequestBody CompletionRequest request);
+
+    @GetMapping("/v1/fine-tunes")
+    SingleResponse<OpenAiResponse<FineTuneResult>> listFineTunes();
+
+    @GetMapping("/v1/fine-tunes/{fine_tune_id}")
+    SingleResponse<FineTuneResult> retrieveFineTune(@Param("fine_tune_id") String fineTuneId);
+
+    @PostMapping("/v1/fine-tunes/{fine_tune_id}/cancel")
+    SingleResponse<FineTuneResult> cancelFineTune(@Param("fine_tune_id") String fineTuneId);
+
+    @GetMapping("/v1/fine-tunes/{fine_tune_id}/events")
+    SingleResponse<OpenAiResponse<FineTuneEvent>> listFineTuneEvents(@Param("fine_tune_id") String fineTuneId);
+
+    @DeleteMapping("/v1/models/{fine_tune_id}")
+    SingleResponse<DeleteResult> deleteFineTune(@Param("fine_tune_id") String fineTuneId);
+
+    @PostMapping("/v1/images/generations")
+    SingleResponse<ImageResult> createImage(@RequestBody CreateImageRequest request);
+
+    @PostMapping("/v1/images/edits")
+    SingleResponse<ImageResult> createImageEdit(@RequestBody RequestBody requestBody);
+
+    @PostMapping("/v1/images/variations")
+    SingleResponse<ImageResult> createImageVariation(@RequestBody RequestBody requestBody);
+
+    @PostMapping("/v1/moderations")
+    SingleResponse<ModerationResult> createModeration(@RequestBody ModerationRequest request);
 
     @Deprecated
-    @GET("/v1/engines/{engine_id}")
-    Single<Engine> getEngine(@Path("engine_id") String engineId);
+    @GetMapping("v1/engines")
+    SingleResponse<OpenAiResponse<Engine>> getEngines();
+
+    @Deprecated
+    @GetMapping("/v1/engines/{engine_id}")
+    SingleResponse<Engine> getEngine(@Param("engine_id") String engineId);
 }

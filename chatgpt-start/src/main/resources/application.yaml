@@ -1,0 +1,21 @@
+server:
+  port: 8702
+spring:
+  profiles:
+    active: ${ENVIRONMENT:dev}
+  application:
+    name: chatgpt-start
+  cloud:
+    nacos:
+      username: ${NACOS_USERNAME}
+      password: ${NACOS_PASSWORD}
+      discovery:
+        namespace: szmengran-${spring.profiles.active}
+        server-addr: ${NACOS_SERVER_ADDRESS}
+      config:
+        namespace: szmengran-${spring.profiles.active}
+        server-addr: ${NACOS_SERVER_ADDRESS}
+  config:
+    import:
+      - nacos:knife4j.yaml
+      - nacos:chatgpt-start.yaml

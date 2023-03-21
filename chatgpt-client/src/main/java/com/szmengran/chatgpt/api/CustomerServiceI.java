@@ -1,10 +1,10 @@
 package com.szmengran.chatgpt.api;
 
-import com.alibaba.cola.dto.MultiResponse;
-import com.alibaba.cola.dto.Response;
 import com.szmengran.chatgpt.dto.CustomerAddCmd;
 import com.szmengran.chatgpt.dto.CustomerListByNameQry;
 import com.szmengran.chatgpt.dto.data.CustomerDTO;
+import com.szmengran.cola.dto.MultiResponse;
+import com.szmengran.cola.dto.Response;
 
 public interface CustomerServiceI {
 
