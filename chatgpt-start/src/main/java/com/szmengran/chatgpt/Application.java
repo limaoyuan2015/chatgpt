@@ -1,14 +1,15 @@
 package com.szmengran.chatgpt;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * Spring Boot Starter
  *
- * @author Frank Zhang
+ * @author Maoyuan.Li
  */
+@EnableFeignClients(basePackages = {"com.szmengran.chatgpt.infrastructure.openai"})
 @SpringBootApplication(scanBasePackages = {"com.szmengran.chatgpt", "com.alibaba.cola"})
 public class Application {
 

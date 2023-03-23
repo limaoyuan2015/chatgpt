@@ -1,7 +1,7 @@
 package com.szmengran.chatgpt.dto.finetune;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.theokanning.openai.file.File;
+import com.szmengran.chatgpt.dto.file.File;
 import lombok.Data;
 
 import java.util.List;

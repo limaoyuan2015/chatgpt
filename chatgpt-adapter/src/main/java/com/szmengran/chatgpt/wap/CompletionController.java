@@ -1,0 +1,32 @@
+package com.szmengran.chatgpt.wap;
+
+import com.szmengran.chatgpt.api.ChatCompletionFacade;
+import com.szmengran.chatgpt.dto.chat.ChatCompletionCO;
+import com.szmengran.chatgpt.dto.chat.ChatCompletionCreateCmd;
+import com.szmengran.cola.dto.SingleResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @Author MaoYuan.Li
+ * @Date 2023/3/23 11:43
+ *
+ * @Version 1.0
+ */
+@Tag(name = "给定一个提示，模型将返回一个或多个预测的完成内容，并且还可以返回每个位置上备选词的概率。")
+@RestController
+public class CompletionController {
+    
+    @Resource
+    private ChatCompletionFacade chatCompletionFacade;
+    
+    @Operation(summary = "Creates a completion for the chat message")
+    @PostMapping("/completions")
+    public SingleResponse<ChatCompletionCO> chatCompletions(@RequestBody ChatCompletionCreateCmd chatCompletionCreateCmd) {
+        return chatCompletionFacade.chatCompletion(chatCompletionCreateCmd);
+    }
+}

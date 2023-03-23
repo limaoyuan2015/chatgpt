@@ -16,15 +16,15 @@ public class EditUsage {
     /**
      * The number of prompt tokens consumed.
      */
-    String promptTokens;
+    private String promptTokens;
 
     /**
      * The number of completion tokens consumed.
      */
-    String completionTokens;
+    private String completionTokens;
 
     /**
      * The number of total tokens consumed.
      */
-    String totalTokens;
+    private String totalTokens;
 }

@@ -13,10 +13,10 @@ public class EditChoice {
     /**
      * The edited text.
      */
-    String text;
+    private String text;
 
     /**
      * This index of this completion in the returned list.
      */
-    Integer index;
+    private Integer index;
 }

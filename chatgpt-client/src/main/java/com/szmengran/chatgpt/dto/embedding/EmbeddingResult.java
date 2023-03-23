@@ -1,6 +1,6 @@
 package com.szmengran.chatgpt.dto.embedding;
 
-import com.theokanning.openai.Usage;
+import com.szmengran.chatgpt.dto.Usage;
 import lombok.Data;
 
 import java.util.List;

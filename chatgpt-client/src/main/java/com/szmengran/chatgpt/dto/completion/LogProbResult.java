@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * Log probabilities of different token options
- * Returned if {@link CompletionRequest#logprobs} is greater than zero
+ * Returned if {@link CompletionCreateCmd#logprobs} is greater than zero
  *
  * https://beta.openai.com/docs/api-reference/create-completion
  */
@@ -28,7 +28,7 @@ public class LogProbResult {
 
     /**
      * A map for each index in the completion result.
-     * The map contains the top {@link CompletionRequest#logprobs} tokens and their probabilities
+     * The map contains the top {@link CompletionCreateCmd#logprobs} tokens and their probabilities
      */
     @JsonProperty("top_logprobs")
     List<Map<String, Double>> topLogprobs;

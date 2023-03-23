@@ -17,11 +17,6 @@
             <groupId>com.szmengran</groupId>
             <artifactId>chatgpt-adapter</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -48,6 +43,36 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.0.4</version>
+            </plugin>
+    
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:17.0.2</image>
+                    </from>
+                    <to>
+                        <image>registry.cn-guangzhou.aliyuncs.com/szmengran/chatpgt</image>
+                        <auth>
+                            <username>szmengran@sina.cn</username>
+                            <password>Li542184118123@</password>
+                        </auth>
+                        <tags>
+                            <tag>${project.parent.version}</tag>
+                        </tags>
+                    </to>
+                    <container>
+                        <!--jvm内存参数-->
+                        <jvmFlags>
+                            <jvmFlag>-Xms400m</jvmFlag>
+                            <jvmFlag>-Xmx400m</jvmFlag>
+                        </jvmFlags>
+                        <mainClass>com.szmengran.chatgpt.Application</mainClass>
+                    </container>
+                </configuration>
             </plugin>
         </plugins>
     </build>
