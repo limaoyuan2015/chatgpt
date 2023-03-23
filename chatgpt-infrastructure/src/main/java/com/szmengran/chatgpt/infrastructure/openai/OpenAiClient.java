@@ -39,10 +39,10 @@ public interface OpenAiClient {
     @GetMapping("/v1/models/{modelId}")
     Model getModel(@Param("modelId") String modelId);
 
-    @PostMapping("/v1/completions")
+    @PostMapping(value = "/v1/completions", consumes = "application/json", produces = "application/json")
     CompletionCO createCompletion(@RequestBody CompletionCreateCmd request);
     
-    @PostMapping("/v1/chat/completions")
+    @PostMapping(value = "/v1/chat/completions", consumes = "application/json", produces = "application/json")
     ChatCompletionCO createChatCompletion(@RequestBody ChatCompletionCreateCmd request);
 
     @PostMapping("/v1/edits")
