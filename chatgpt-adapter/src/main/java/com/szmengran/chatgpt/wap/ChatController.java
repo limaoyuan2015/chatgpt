@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,16 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @Version 1.0
  */
-@Tag(name = "Given a chat conversation, the model will return a chat completion response.")
+@Tag(name = "chat")
 @RestController
-@RequestMapping("/chat")
 public class ChatController {
     
     @Resource
     private ChatCompletionFacade chatCompletionFacade;
     
     @Operation(summary = "Creates a completion for the chat message")
-    @PostMapping("/completions")
+    @PostMapping("/chat/completions")
     public SingleResponse<ChatCompletionCO> chatCompletions(@RequestBody ChatCompletionCreateCmd chatCompletionCreateCmd) {
         return chatCompletionFacade.chatCompletion(chatCompletionCreateCmd);
     }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @Version 1.0
  */
-@Tag(name = "给定一个提示，模型将返回一个或多个预测的完成内容，并且还可以返回每个位置上备选词的概率。")
+@Tag(name = "completions")
 @RestController
 public class CompletionController {
     

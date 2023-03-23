@@ -22,10 +22,7 @@ import com.szmengran.chatgpt.dto.model.ModelCO;
 import com.szmengran.chatgpt.dto.moderation.ModerationRequest;
 import com.szmengran.chatgpt.dto.moderation.ModerationResult;
 import feign.Param;
-import feign.RequestInterceptor;
-import feign.RequestTemplate;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,19 +30,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(name="openai", url="https://api.openai.com/")
+@FeignClient(name="openai", url="https://api.openai.com/", configuration = FeignClientConfiguration.class)
 public interface OpenAiClient {
-    
-    @Bean
-    default RequestInterceptor requestInterceptor() {
-        return new RequestInterceptor() {
-            @Override
-            public void apply(RequestTemplate template) {
-                // 添加拦截器逻辑
-                System.out.println("。。。");
-            }
-        };
-    }
     
     @GetMapping("v1/models")
     ModelCO listModels();
