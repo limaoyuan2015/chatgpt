@@ -9,14 +9,14 @@ import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import com.szmengran.chatgpt.dto.edit.EditCO;
 import com.szmengran.chatgpt.dto.edit.EditCreateCmd;
 import com.szmengran.chatgpt.dto.embedding.EmbeddingCreateCmd;
-import com.szmengran.chatgpt.dto.embedding.EmbeddingResult;
+import com.szmengran.chatgpt.dto.embedding.EmbeddingCO;
 import com.szmengran.chatgpt.dto.engine.Engine;
 import com.szmengran.chatgpt.dto.file.File;
 import com.szmengran.chatgpt.dto.finetune.FineTuneEvent;
 import com.szmengran.chatgpt.dto.finetune.FineTuneRequest;
 import com.szmengran.chatgpt.dto.finetune.FineTuneResult;
-import com.szmengran.chatgpt.dto.image.CreateImageRequest;
-import com.szmengran.chatgpt.dto.image.ImageResult;
+import com.szmengran.chatgpt.dto.image.ImageCreateCmd;
+import com.szmengran.chatgpt.dto.image.ImageCO;
 import com.szmengran.chatgpt.dto.model.Model;
 import com.szmengran.chatgpt.dto.model.ModelCO;
 import com.szmengran.chatgpt.dto.moderation.ModerationRequest;
@@ -49,7 +49,7 @@ public interface OpenAiClient {
     EditCO createEdit(@RequestBody EditCreateCmd request);
 
     @PostMapping("/v1/embeddings")
-    EmbeddingResult createEmbeddings(@RequestBody EmbeddingCreateCmd request);
+    EmbeddingCO createEmbeddings(@RequestBody EmbeddingCreateCmd request);
 
     @GetMapping("/v1/files")
     OpenAiResponse<File> listFiles();
@@ -85,13 +85,13 @@ public interface OpenAiClient {
     DeleteCO deleteFineTune(@Param("fineTuneId") String fineTuneId);
 
     @PostMapping("/v1/images/generations")
-    ImageResult createImage(@RequestBody CreateImageRequest request);
+    ImageCO createImage(@RequestBody ImageCreateCmd request);
 
     @PostMapping("/v1/images/edits")
-    ImageResult createImageEdit(@RequestBody RequestBody requestBody);
+    ImageCO createImageEdit(@RequestBody RequestBody requestBody);
 
     @PostMapping("/v1/images/variations")
-    ImageResult createImageVariation(@RequestBody RequestBody requestBody);
+    ImageCO createImageVariation(@RequestBody RequestBody requestBody);
 
     @PostMapping("/v1/moderations")
     ModerationResult createModeration(@RequestBody ModerationRequest request);

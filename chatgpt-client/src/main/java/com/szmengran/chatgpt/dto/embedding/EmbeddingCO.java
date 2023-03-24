@@ -11,7 +11,7 @@ import java.util.List;
  * https://beta.openai.com/docs/api-reference/embeddings/create
  */
 @Data
-public class EmbeddingResult {
+public class EmbeddingCO {
 
     /**
      * The GPT-3 model used for generating embeddings

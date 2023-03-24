@@ -8,16 +8,16 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * A request for OpenAi to create an image based on a prompt
+ * A request for OpenAi to edit an image based on a prompt
  * All fields except prompt are optional
  *
- * https://beta.openai.com/docs/api-reference/images/create
+ * https://beta.openai.com/docs/api-reference/images/create-edit
  */
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreateImageRequest {
+public class ImageCreateEditCmd {
 
     /**
      * A text description of the desired image(s). The maximum length in 1000 characters.

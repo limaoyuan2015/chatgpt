@@ -10,7 +10,7 @@ import java.util.List;
  * https://beta.openai.com/docs/api-reference/images
  */
 @Data
-public class ImageResult {
+public class ImageCO {
 
     /**
      * The creation time in epoch seconds.

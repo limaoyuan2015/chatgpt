@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreateImageVariationRequest {
+public class ImageCreateVariationCmd {
 
     /**
      * The number of images to generate. Must be between 1 and 10. Defaults to 1.
