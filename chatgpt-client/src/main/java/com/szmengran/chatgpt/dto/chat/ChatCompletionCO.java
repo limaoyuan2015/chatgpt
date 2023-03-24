@@ -34,7 +34,7 @@ public class ChatCompletionCO {
     /**
      * A list of all generated completions.
      */
-    private List<ChatCompletionChoice> chatCompletionChoices;
+    private List<ChatCompletionChoice> choices;
 
     /**
      * The API usage for this request.

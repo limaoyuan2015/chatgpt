@@ -1,5 +1,7 @@
 package com.szmengran.chatgpt.dto.completion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.szmengran.cola.dto.Command;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonInclude(Include.NON_NULL)
 public class CompletionCreateCmd extends Command {
 
     /**
