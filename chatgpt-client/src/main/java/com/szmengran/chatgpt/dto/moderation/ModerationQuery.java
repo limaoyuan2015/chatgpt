@@ -15,7 +15,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ModerationRequest {
+public class ModerationQuery {
 
     /**
      * The input text to classify.

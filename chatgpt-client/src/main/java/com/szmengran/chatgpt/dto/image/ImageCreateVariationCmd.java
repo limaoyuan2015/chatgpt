@@ -17,7 +17,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class ImageCreateVariationCmd {
-
+    
+    /**
+     * The image to edit. Must be a valid PNG file, less than 4MB, and square. If mask is not provided, image must have transparency, which will be used as the mask.
+     */
+    private String image;
+    
     /**
      * The number of images to generate. Must be between 1 and 10. Defaults to 1.
      */
@@ -28,14 +33,4 @@ public class ImageCreateVariationCmd {
      */
     String size;
 
-    /**
-     * The format in which the generated images are returned. Must be one of url or b64_json. Defaults to url.
-     */
-    @JsonProperty("response_format")
-    String responseFormat;
-
-    /**
-     * A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.
-     */
-    String user;
 }

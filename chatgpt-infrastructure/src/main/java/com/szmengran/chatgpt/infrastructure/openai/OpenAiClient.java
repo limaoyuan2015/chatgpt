@@ -1,26 +1,32 @@
 package com.szmengran.chatgpt.infrastructure.openai;
 
-import com.szmengran.chatgpt.dto.DeleteCO;
 import com.szmengran.chatgpt.dto.OpenAiResponse;
+import com.szmengran.chatgpt.dto.audio.AudioCO;
+import com.szmengran.chatgpt.dto.audio.AudioCreateCmd;
 import com.szmengran.chatgpt.dto.chat.ChatCompletionCO;
 import com.szmengran.chatgpt.dto.chat.ChatCompletionCreateCmd;
 import com.szmengran.chatgpt.dto.completion.CompletionCO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import com.szmengran.chatgpt.dto.edit.EditCO;
 import com.szmengran.chatgpt.dto.edit.EditCreateCmd;
-import com.szmengran.chatgpt.dto.embedding.EmbeddingCreateCmd;
 import com.szmengran.chatgpt.dto.embedding.EmbeddingCO;
+import com.szmengran.chatgpt.dto.embedding.EmbeddingCreateCmd;
 import com.szmengran.chatgpt.dto.engine.Engine;
+import com.szmengran.chatgpt.dto.file.DeleteFileCO;
 import com.szmengran.chatgpt.dto.file.File;
-import com.szmengran.chatgpt.dto.finetune.FineTuneEvent;
-import com.szmengran.chatgpt.dto.finetune.FineTuneRequest;
-import com.szmengran.chatgpt.dto.finetune.FineTuneResult;
-import com.szmengran.chatgpt.dto.image.ImageCreateCmd;
+import com.szmengran.chatgpt.dto.file.FileCO;
+import com.szmengran.chatgpt.dto.finetune.DeleteFineTuneCO;
+import com.szmengran.chatgpt.dto.finetune.FineTune;
+import com.szmengran.chatgpt.dto.finetune.FineTuneCO;
+import com.szmengran.chatgpt.dto.finetune.FineTuneCreateCmd;
 import com.szmengran.chatgpt.dto.image.ImageCO;
+import com.szmengran.chatgpt.dto.image.ImageCreateCmd;
+import com.szmengran.chatgpt.dto.image.ImageCreateEditCmd;
+import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmd;
 import com.szmengran.chatgpt.dto.model.Model;
 import com.szmengran.chatgpt.dto.model.ModelCO;
-import com.szmengran.chatgpt.dto.moderation.ModerationRequest;
-import com.szmengran.chatgpt.dto.moderation.ModerationResult;
+import com.szmengran.chatgpt.dto.moderation.ModerationCO;
+import com.szmengran.chatgpt.dto.moderation.ModerationQuery;
 import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,50 +57,56 @@ public interface OpenAiClient {
     @PostMapping("/v1/embeddings")
     EmbeddingCO createEmbeddings(@RequestBody EmbeddingCreateCmd request);
 
+    @PostMapping("/v1/audio/transcriptions")
+    AudioCO createAudioTranscription(@RequestBody AudioCreateCmd audioCreateCmd);
+    
+    @PostMapping("/v1/audio/translations")
+    AudioCO createAudioTranslation(@RequestBody AudioCreateCmd audioCreateCmd);
+    
     @GetMapping("/v1/files")
-    OpenAiResponse<File> listFiles();
+    FileCO listFiles();
 
     @PostMapping("/v1/files")
-    File uploadFile(@Param("purpose") RequestBody purpose, @RequestPart MultipartFile file);
+    File uploadFile(@Param("purpose") String purpose, @RequestPart MultipartFile file);
 
     @DeleteMapping("/v1/files/{fileId}")
-    DeleteCO deleteFile(@Param("fileId") String fileId);
+    DeleteFileCO deleteFile(@Param("fileId") String fileId);
 
     @GetMapping("/v1/files/{fileId}")
     File retrieveFile(@Param("fileId") String fileId);
 
     @PostMapping("/v1/fine-tunes")
-    FineTuneResult createFineTune(@RequestBody FineTuneRequest request);
+    FineTune createFineTune(@RequestBody FineTuneCreateCmd request);
 
     @PostMapping("/v1/completions")
     CompletionCO createFineTuneCompletion(@RequestBody CompletionCreateCmd request);
 
     @GetMapping("/v1/fine-tunes")
-    OpenAiResponse<FineTuneResult> listFineTunes();
+    FineTuneCO listFineTunes();
 
     @GetMapping("/v1/fine-tunes/{fineTuneId}")
-    FineTuneResult retrieveFineTune(@Param("fineTuneId") String fineTuneId);
+    FineTune retrieveFineTune(@Param("fineTuneId") String fineTuneId);
 
     @PostMapping("/v1/fine-tunes/{fineTuneId}/cancel")
-    FineTuneResult cancelFineTune(@Param("fineTuneId") String fineTuneId);
+    FineTune cancelFineTune(@Param("fineTuneId") String fineTuneId);
 
     @GetMapping("/v1/fine-tunes/{fineTuneId}/events")
-    OpenAiResponse<FineTuneEvent> listFineTuneEvents(@Param("fineTuneId") String fineTuneId);
+    FineTuneCO listFineTuneEvents(@Param("fineTuneId") String fineTuneId);
 
     @DeleteMapping("/v1/models/{fineTuneId}")
-    DeleteCO deleteFineTune(@Param("fineTuneId") String fineTuneId);
+    DeleteFineTuneCO deleteFineTune(@Param("fineTuneId") String fineTuneId);
 
     @PostMapping("/v1/images/generations")
-    ImageCO createImage(@RequestBody ImageCreateCmd request);
+    ImageCO createImage(@RequestBody ImageCreateCmd imageCreateCmd);
 
     @PostMapping("/v1/images/edits")
-    ImageCO createImageEdit(@RequestBody RequestBody requestBody);
+    ImageCO createImageEdit(@RequestBody ImageCreateEditCmd imageCreateEditCmd);
 
     @PostMapping("/v1/images/variations")
-    ImageCO createImageVariation(@RequestBody RequestBody requestBody);
+    ImageCO createImageVariation(@RequestBody ImageCreateVariationCmd imageCreateVariationCmd);
 
     @PostMapping("/v1/moderations")
-    ModerationResult createModeration(@RequestBody ModerationRequest request);
+    ModerationCO createModeration(@RequestBody ModerationQuery request);
 
     @Deprecated
     @GetMapping("v1/engines")

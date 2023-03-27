@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class FineTuneRequest {
+public class FineTuneCreateCmd {
 
     /**
      * The ID of an uploaded file that contains training data.
@@ -84,8 +84,8 @@ public class FineTuneRequest {
      * at the end of every epoch. These metrics can be viewed in the results file.
      *
      * In order to compute classification metrics, you must provide a validation_file.
-     * Additionally, you must specify {@link FineTuneRequest#classificationNClasses} for multiclass
-     * classification or {@link FineTuneRequest#classificationPositiveClass} for binary classification.
+     * Additionally, you must specify {@link FineTuneCreateCmd#classificationNClasses} for multiclass
+     * classification or {@link FineTuneCreateCmd#classificationPositiveClass} for binary classification.
      */
     @JsonProperty("compute_classification_metrics")
     Boolean computeClassificationMetrics;

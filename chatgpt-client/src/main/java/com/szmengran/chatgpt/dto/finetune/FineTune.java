@@ -12,7 +12,7 @@ import java.util.List;
  * https://beta.openai.com/docs/api-reference/fine-tunes
  */
 @Data
-public class FineTuneResult {
+public class FineTune {
     /**
      * The ID of the fine-tuning job.
      */

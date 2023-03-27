@@ -18,6 +18,16 @@ import lombok.NonNull;
 @AllArgsConstructor
 @Data
 public class ImageCreateEditCmd {
+    
+    /**
+     * The image to edit. Must be a valid PNG file, less than 4MB, and square. If mask is not provided, image must have transparency, which will be used as the mask.
+     */
+    private String image;
+    
+    /**
+     * An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where image should be edited. Must be a valid PNG file, less than 4MB, and have the same dimensions as image.
+     */
+    private String mask;
 
     /**
      * A text description of the desired image(s). The maximum length in 1000 characters.
@@ -35,14 +45,4 @@ public class ImageCreateEditCmd {
      */
     String size;
 
-    /**
-     * The format in which the generated images are returned. Must be one of url or b64_json. Defaults to url.
-     */
-    @JsonProperty("response_format")
-    String responseFormat;
-
-    /**
-     * A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.
-     */
-    String user;
 }

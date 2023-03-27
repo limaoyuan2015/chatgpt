@@ -19,5 +19,5 @@ public interface EmbeddingFacade {
      * @author MaoYuan.Li
      * @date: 2023/3/24 18:41
      */
-    SingleResponse<EmbeddingCO> createEmbedding(EmbeddingCreateCmd embeddingCreateCmd);
+    SingleResponse<EmbeddingCO> create(EmbeddingCreateCmd embeddingCreateCmd);
 }

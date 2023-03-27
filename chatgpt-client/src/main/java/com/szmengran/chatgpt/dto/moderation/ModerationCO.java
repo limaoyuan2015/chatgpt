@@ -10,7 +10,7 @@ import java.util.List;
  * https://beta.openai.com/docs/api-reference/moderations/create
  */
 @Data
-public class ModerationResult {
+public class ModerationCO {
     /**
      * A unique id assigned to this moderation.
      */

@@ -25,7 +25,7 @@ public class CompletionController {
     private ChatCompletionFacade chatCompletionFacade;
     
     @Operation(summary = "Creates a completion for the chat message")
-    @PostMapping("/completions")
+    @PostMapping("/v1/completions")
     public SingleResponse<ChatCompletionCO> chatCompletions(@RequestBody ChatCompletionCreateCmd chatCompletionCreateCmd) {
         return chatCompletionFacade.chatCompletion(chatCompletionCreateCmd);
     }

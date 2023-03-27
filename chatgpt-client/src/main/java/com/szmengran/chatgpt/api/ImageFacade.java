@@ -20,7 +20,7 @@ public interface ImageFacade {
      * @author MaoYuan.Li
      * @date: 2023/3/24 18:18
      */
-    SingleResponse<ImageCO> createImage(ImageCreateCmd imageCreateCmd);
+    SingleResponse<ImageCO> create(ImageCreateCmd imageCreateCmd);
     
     /** 
      * @description: Creates an edited or extended image given an original image and a prompt.
@@ -29,14 +29,14 @@ public interface ImageFacade {
      * @author MaoYuan.Li
      * @date: 2023/3/24 18:20
      */
-    SingleResponse<ImageCO> createImageEdit(ImageCreateEditCmd imageCreateEditCmd);
+    SingleResponse<ImageCO> edit(ImageCreateEditCmd imageCreateEditCmd);
     
     /** 
      * @description: Creates a variation of a given image.
      * @param imageCreateVariationCmd 
      * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.image.ImageCO> 
      * @author MaoYuan.Li
-     * @date: 2023/3/24 18:22
+     * @date: 2023/3/27 11:55
      */
-    SingleResponse<ImageCO> createImageEdit(ImageCreateVariationCmd imageCreateVariationCmd);
+    SingleResponse<ImageCO> variation(ImageCreateVariationCmd imageCreateVariationCmd);
 }
