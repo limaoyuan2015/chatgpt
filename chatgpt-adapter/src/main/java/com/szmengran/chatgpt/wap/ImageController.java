@@ -9,6 +9,7 @@ import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,7 +32,7 @@ public class ImageController {
      * @date: 2023/3/27 14:40
      */
     @PostMapping("/v1/images/generations")
-    public SingleResponse<ImageCO> generate(ImageCreateCmd imageCreateCmd) {
+    public SingleResponse<ImageCO> generate(@RequestBody ImageCreateCmd imageCreateCmd) {
         return imageFacade.create(imageCreateCmd);
     }
     
@@ -43,7 +44,7 @@ public class ImageController {
      * @date: 2023/3/27 15:26
      */
     @PostMapping("/v1/images/edits")
-    public SingleResponse<ImageCO> edit(ImageCreateEditCmd imageCreateEditCmd) {
+    public SingleResponse<ImageCO> edit(@RequestBody ImageCreateEditCmd imageCreateEditCmd) {
         return imageFacade.edit(imageCreateEditCmd);
     }
     
@@ -55,7 +56,7 @@ public class ImageController {
      * @date: 2023/3/27 16:14
      */
     @PostMapping("/v1/images/variations")
-    public SingleResponse<ImageCO> variation(ImageCreateVariationCmd imageCreateVariationCmd) {
+    public SingleResponse<ImageCO> variation(@RequestBody ImageCreateVariationCmd imageCreateVariationCmd) {
         return imageFacade.variation(imageCreateVariationCmd);
     }
 }

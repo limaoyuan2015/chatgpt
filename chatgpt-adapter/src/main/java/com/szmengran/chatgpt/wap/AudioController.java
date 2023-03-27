@@ -7,6 +7,7 @@ import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -29,7 +30,7 @@ public class AudioController {
      * @date: 2023/3/27 15:50
      */
     @PostMapping("/v1/audio/transcriptions")
-    public SingleResponse<AudioCO> transcription(AudioCreateCmd audioCreateCmd) {
+    public SingleResponse<AudioCO> transcription(@RequestBody AudioCreateCmd audioCreateCmd) {
         return audioFacade.transcription(audioCreateCmd);
     }
     
@@ -41,7 +42,7 @@ public class AudioController {
      * @date: 2023/3/27 16:28
      */
     @PostMapping("/v1/audio/translations")
-    public SingleResponse<AudioCO> translate(AudioCreateCmd audioCreateCmd) {
+    public SingleResponse<AudioCO> translate(@RequestBody AudioCreateCmd audioCreateCmd) {
         return audioFacade.translate(audioCreateCmd);
     }
 }

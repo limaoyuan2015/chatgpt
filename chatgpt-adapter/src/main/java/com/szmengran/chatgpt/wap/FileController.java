@@ -70,8 +70,8 @@ public class FileController {
      * @author MaoYuan.Li
      * @date: 2023/3/27 12:20
      */
-    @DeleteMapping("/v1/files/{fileId}")
-    public SingleResponse<File> retrieve(String fileId) {
+    @GetMapping("/v1/files/{fileId}")
+    public SingleResponse<File> retrieve(@PathVariable("fileId") String fileId) {
         return fileFacade.retrieve(fileId);
     }
 }

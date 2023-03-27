@@ -7,6 +7,7 @@ import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,7 +23,7 @@ public class EmbeddingController {
     private EmbeddingFacade embeddingFacade;
     
     @PostMapping("/v1/embeddings")
-    public SingleResponse<EmbeddingCO> create(EmbeddingCreateCmd embeddingCreateCmd) {
+    public SingleResponse<EmbeddingCO> create(@RequestBody EmbeddingCreateCmd embeddingCreateCmd) {
         return embeddingFacade.create(embeddingCreateCmd);
     }
 }

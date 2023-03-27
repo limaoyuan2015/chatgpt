@@ -7,6 +7,7 @@ import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,7 +23,7 @@ public class EditController {
     private EditFacade editFacade;
     
     @GetMapping("/v1/edits")
-    public SingleResponse<EditCO> edit(EditCreateCmd editCreateCmd) {
+    public SingleResponse<EditCO> edit(@RequestBody EditCreateCmd editCreateCmd) {
         return editFacade.edit(editCreateCmd);
     }
 }
