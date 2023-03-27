@@ -3,7 +3,7 @@ package com.szmengran.chatgpt.wap;
 import com.szmengran.chatgpt.api.FileFacade;
 import com.szmengran.chatgpt.dto.file.DeleteFileCO;
 import com.szmengran.chatgpt.dto.file.File;
-import com.szmengran.chatgpt.dto.file.FileCO;
+import com.szmengran.cola.dto.MultiResponse;
 import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -34,7 +34,7 @@ public class FileController {
      * @date: 2023/3/27 15:56
      */
     @GetMapping("/v1/files")
-    public SingleResponse<FileCO> list() {
+    public MultiResponse<File> list() {
         return fileFacade.list();
     }
     

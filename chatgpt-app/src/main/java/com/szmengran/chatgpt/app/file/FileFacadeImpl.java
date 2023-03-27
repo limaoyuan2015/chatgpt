@@ -1,10 +1,11 @@
 package com.szmengran.chatgpt.app.file;
 
 import com.szmengran.chatgpt.api.FileFacade;
+import com.szmengran.chatgpt.dto.OpenAiResponse;
 import com.szmengran.chatgpt.dto.file.DeleteFileCO;
 import com.szmengran.chatgpt.dto.file.File;
-import com.szmengran.chatgpt.dto.file.FileCO;
 import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
+import com.szmengran.cola.dto.MultiResponse;
 import com.szmengran.cola.dto.SingleResponse;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,9 @@ public class FileFacadeImpl implements FileFacade {
     private OpenAiClient openAiClient;
     
     @Override
-    public SingleResponse<FileCO> list() {
-        FileCO fileCO = openAiClient.listFiles();
-        return SingleResponse.of(fileCO);
+    public MultiResponse<File> list() {
+        OpenAiResponse<File> response = openAiClient.listFiles();
+        return MultiResponse.of(response.getData());
     }
     
     @Override

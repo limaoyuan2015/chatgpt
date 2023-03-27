@@ -2,9 +2,9 @@ package com.szmengran.chatgpt.api;
 
 import com.szmengran.chatgpt.dto.finetune.DeleteFineTuneCO;
 import com.szmengran.chatgpt.dto.finetune.FineTune;
-import com.szmengran.chatgpt.dto.finetune.FineTuneCO;
 import com.szmengran.chatgpt.dto.finetune.FineTuneCreateCmd;
-import com.szmengran.chatgpt.dto.moderation.ModerationCO;
+import com.szmengran.chatgpt.dto.finetune.FineTuneEvent;
+import com.szmengran.cola.dto.MultiResponse;
 import com.szmengran.cola.dto.SingleResponse;
 
 /**
@@ -23,14 +23,14 @@ public interface FineTuneFacade {
      */
     SingleResponse<FineTune> create(FineTuneCreateCmd fineTuneCreateCmd);
     
-    /** 
+    /**
+     * @param
      * @description: List your organization's fine-tuning jobs
-     * @param  
-     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.finetune.FineTuneCO> 
+     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.finetune.FineTuneCO>
      * @author MaoYuan.Li
      * @date: 2023/3/27 12:23
      */
-    SingleResponse<FineTuneCO> list();
+    MultiResponse<FineTune> list();
     
     /** 
      * @description: Gets info about the fine-tune job.
@@ -50,14 +50,14 @@ public interface FineTuneFacade {
      */
     SingleResponse<FineTune> cancel(String fineTuneId);
     
-    /** 
+    /**
+     * @param fineTuneId
      * @description: Get fine-grained status updates for a fine-tune job.
-     * @param fineTuneId 
-     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.finetune.FineTuneCO> 
+     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.finetune.FineTuneCO>
      * @author MaoYuan.Li
      * @date: 2023/3/27 12:27
      */
-    SingleResponse<FineTuneCO> listEvent(String fineTuneId);
+    MultiResponse<FineTuneEvent> listEvent(String fineTuneId);
     
     /** 
      * @description: Delete a fine-tuned model. You must have the Owner role in your organization.

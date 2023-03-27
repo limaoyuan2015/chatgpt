@@ -14,11 +14,10 @@ import com.szmengran.chatgpt.dto.embedding.EmbeddingCreateCmd;
 import com.szmengran.chatgpt.dto.engine.Engine;
 import com.szmengran.chatgpt.dto.file.DeleteFileCO;
 import com.szmengran.chatgpt.dto.file.File;
-import com.szmengran.chatgpt.dto.file.FileCO;
 import com.szmengran.chatgpt.dto.finetune.DeleteFineTuneCO;
 import com.szmengran.chatgpt.dto.finetune.FineTune;
-import com.szmengran.chatgpt.dto.finetune.FineTuneCO;
 import com.szmengran.chatgpt.dto.finetune.FineTuneCreateCmd;
+import com.szmengran.chatgpt.dto.finetune.FineTuneEvent;
 import com.szmengran.chatgpt.dto.image.ImageCO;
 import com.szmengran.chatgpt.dto.image.ImageCreateCmd;
 import com.szmengran.chatgpt.dto.image.ImageCreateEditCmd;
@@ -67,7 +66,7 @@ public interface OpenAiClient {
     AudioCO createAudioTranslation(@RequestBody AudioCreateCmd audioCreateCmd);
     
     @GetMapping("/v1/files")
-    FileCO listFiles();
+    OpenAiResponse<File> listFiles();
 
     @PostMapping("/v1/files")
     File uploadFile(@Param("purpose") String purpose, @RequestPart MultipartFile file);
@@ -85,7 +84,7 @@ public interface OpenAiClient {
     CompletionCO createFineTuneCompletion(@RequestBody CompletionCreateCmd request);
 
     @GetMapping("/v1/fine-tunes")
-    FineTuneCO listFineTunes();
+    OpenAiResponse<FineTune> listFineTunes();
 
     @GetMapping("/v1/fine-tunes/{fineTuneId}")
     FineTune retrieveFineTune(@PathVariable("fineTuneId") String fineTuneId);
@@ -94,7 +93,7 @@ public interface OpenAiClient {
     FineTune cancelFineTune(@PathVariable("fineTuneId") String fineTuneId);
 
     @GetMapping("/v1/fine-tunes/{fineTuneId}/events")
-    FineTuneCO listFineTuneEvents(@PathVariable("fineTuneId") String fineTuneId);
+    OpenAiResponse<FineTuneEvent> listFineTuneEvents(@PathVariable("fineTuneId") String fineTuneId);
 
     @DeleteMapping("/v1/models/{fineTuneId}")
     DeleteFineTuneCO deleteFineTune(@PathVariable("fineTuneId") String fineTuneId);

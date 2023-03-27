@@ -2,9 +2,8 @@ package com.szmengran.chatgpt.api;
 
 import com.szmengran.chatgpt.dto.file.DeleteFileCO;
 import com.szmengran.chatgpt.dto.file.File;
-import com.szmengran.chatgpt.dto.file.FileCO;
+import com.szmengran.cola.dto.MultiResponse;
 import com.szmengran.cola.dto.SingleResponse;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -14,14 +13,14 @@ import org.springframework.web.multipart.MultipartFile;
  * @Version 1.0
  */
 public interface FileFacade {
-    /** 
+    /**
+     * @param
      * @description: Returns a list of files that belong to the user's organization.
-     * @param  
-     * @return: com.szmengran.chatgpt.dto.file.FileCO 
+     * @return: com.szmengran.chatgpt.dto.file.FileCO
      * @author MaoYuan.Li
      * @date: 2023/3/27 11:53
      */
-    SingleResponse<FileCO> list();
+    MultiResponse<File> list();
     
     /** 
      * @description: Upload a file that contains document(s) to be used across various endpoints/features. Currently, the size of all the files uploaded by one organization can be up to 1 GB. Please contact us if you need to increase the storage limit.

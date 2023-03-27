@@ -1,11 +1,13 @@
 package com.szmengran.chatgpt.app.finetune;
 
 import com.szmengran.chatgpt.api.FineTuneFacade;
+import com.szmengran.chatgpt.dto.OpenAiResponse;
 import com.szmengran.chatgpt.dto.finetune.DeleteFineTuneCO;
 import com.szmengran.chatgpt.dto.finetune.FineTune;
-import com.szmengran.chatgpt.dto.finetune.FineTuneCO;
 import com.szmengran.chatgpt.dto.finetune.FineTuneCreateCmd;
+import com.szmengran.chatgpt.dto.finetune.FineTuneEvent;
 import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
+import com.szmengran.cola.dto.MultiResponse;
 import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -30,9 +32,9 @@ public class FineTuneFacadeImpl implements FineTuneFacade {
     }
     
     @Override
-    public SingleResponse<FineTuneCO> list() {
-        FineTuneCO fineTuneCO = openAiClient.listFineTunes();
-        return SingleResponse.of(fineTuneCO);
+    public MultiResponse<FineTune> list() {
+        OpenAiResponse<FineTune> response = openAiClient.listFineTunes();
+        return MultiResponse.of(response.getData());
     }
     
     @Override
@@ -48,9 +50,9 @@ public class FineTuneFacadeImpl implements FineTuneFacade {
     }
     
     @Override
-    public SingleResponse<FineTuneCO> listEvent(final String fineTuneId) {
-        FineTuneCO fineTuneCO = openAiClient.listFineTuneEvents(fineTuneId);
-        return SingleResponse.of(fineTuneCO);
+    public MultiResponse<FineTuneEvent> listEvent(final String fineTuneId) {
+        OpenAiResponse<FineTuneEvent> response = openAiClient.listFineTuneEvents(fineTuneId);
+        return MultiResponse.of(response.getData());
     }
     
     @Override

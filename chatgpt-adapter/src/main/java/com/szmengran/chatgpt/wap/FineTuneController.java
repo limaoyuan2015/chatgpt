@@ -3,8 +3,9 @@ package com.szmengran.chatgpt.wap;
 import com.szmengran.chatgpt.api.FineTuneFacade;
 import com.szmengran.chatgpt.dto.finetune.DeleteFineTuneCO;
 import com.szmengran.chatgpt.dto.finetune.FineTune;
-import com.szmengran.chatgpt.dto.finetune.FineTuneCO;
 import com.szmengran.chatgpt.dto.finetune.FineTuneCreateCmd;
+import com.szmengran.chatgpt.dto.finetune.FineTuneEvent;
+import com.szmengran.cola.dto.MultiResponse;
 import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -47,7 +48,7 @@ public class FineTuneController {
      * @date: 2023/3/27 12:23
      */
     @GetMapping("/v1/fine-tunes")
-    public SingleResponse<FineTuneCO> list() {
+    public MultiResponse<FineTune> list() {
         return fineTuneFacade.list();
     }
     
@@ -83,7 +84,7 @@ public class FineTuneController {
      * @date: 2023/3/27 12:27
      */
     @GetMapping("/v1/fine-tunes/{fine_tune_id}/events")
-    public SingleResponse<FineTuneCO> listEvent(@PathVariable("fineTuneId") String fineTuneId) {
+    public MultiResponse<FineTuneEvent> listEvent(@PathVariable("fineTuneId") String fineTuneId) {
         return fineTuneFacade.listEvent(fineTuneId);
     }
     
