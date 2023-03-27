@@ -6,6 +6,7 @@ import com.szmengran.chatgpt.dto.image.ImageCreateCmd;
 import com.szmengran.chatgpt.dto.image.ImageCreateEditCmd;
 import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmd;
 import com.szmengran.cola.dto.SingleResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2023/3/27 14:37
  * @Version 1.0
  */
+@Tag(name = "image")
 @RestController
 public class ImageController {
     

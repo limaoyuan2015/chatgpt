@@ -4,6 +4,7 @@ import com.szmengran.chatgpt.api.AudioFacade;
 import com.szmengran.chatgpt.dto.audio.AudioCO;
 import com.szmengran.chatgpt.dto.audio.AudioCreateCmd;
 import com.szmengran.cola.dto.SingleResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2023/3/27 15:48
  * @Version 1.0
  */
+@Tag(name = "audio")
 @RestController
 public class AudioController {
     

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2023/3/27 15:45
  * @Version 1.0
  */
-@RestController
 @Tag(name = "embeddings")
+@RestController
 public class EmbeddingController {
 
     @Resource

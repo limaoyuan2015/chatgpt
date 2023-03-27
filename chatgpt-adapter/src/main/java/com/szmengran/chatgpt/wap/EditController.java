@@ -7,6 +7,7 @@ import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Author MaoYuan.Li
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @Version 1.0
  */
 @Tag(name = "edit")
+@RestController
 public class EditController {
     
     @Resource
