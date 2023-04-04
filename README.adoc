@@ -18,6 +18,7 @@ OpenAI GPT-3模型是目前最先进的自然语言处理模型之一，可以�
 对于对接OpenAI服务的应用程序，需要先注册OpenAI账号并获得API密钥，然后根据不同的服务接口，使用相应的SDK或API进行调用。同时，需要注意OpenAI服务的使用限制和计费规则，避免超出使用限制或产生不必要的费用。
 
 该项目对接了opanai的api
+
 ## 支持的API包括
 - [Models](https://platform.openai.com/docs/api-reference/models)
 - [Completions](https://platform.openai.com/docs/api-reference/completions)
@@ -34,7 +35,7 @@ image::chatgpt-swagger.png[]
 
 ## 注意该服务需要部署在境外的服务器才能正常处理请求
 
-## 另外需要把注册的secretKey配置在配置文件中，内容如下
+## 另外需要把注册的secretKey配置在配置文件中，chatgpt-start.yaml配置文件内容如下
 ```
 openai:
   secretKey: xxx
