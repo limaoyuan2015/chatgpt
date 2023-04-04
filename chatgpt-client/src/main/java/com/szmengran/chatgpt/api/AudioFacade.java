@@ -13,7 +13,23 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface AudioFacade {
 
+    /**
+     * @description: Transcribes audio into the input language.
+     * @param model
+     * @param file
+     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.audio.AudioCO>
+     * @author MaoYuan.Li
+     * @date: 2023/4/4 14:21
+     */
     SingleResponse<AudioCO> transcription(String model, MultipartFile file);
     
-    SingleResponse<AudioCO> translate(AudioCreateCmd audioCreateCmd);
+    /** 
+     * @description: Translates audio into into English.
+     * @param model
+     * @param file
+     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.audio.AudioCO> 
+     * @author MaoYuan.Li
+     * @date: 2023/4/4 14:21
+     */
+    SingleResponse<AudioCO> translate(String model, MultipartFile file);
 }

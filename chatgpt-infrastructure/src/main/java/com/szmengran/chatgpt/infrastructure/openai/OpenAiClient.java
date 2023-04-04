@@ -2,7 +2,6 @@ package com.szmengran.chatgpt.infrastructure.openai;
 
 import com.szmengran.chatgpt.dto.OpenAiResponse;
 import com.szmengran.chatgpt.dto.audio.AudioCO;
-import com.szmengran.chatgpt.dto.audio.AudioCreateCmd;
 import com.szmengran.chatgpt.dto.chat.ChatCompletionCO;
 import com.szmengran.chatgpt.dto.chat.ChatCompletionCreateCmd;
 import com.szmengran.chatgpt.dto.completion.CompletionCO;
@@ -26,13 +25,17 @@ import com.szmengran.chatgpt.dto.model.Model;
 import com.szmengran.chatgpt.dto.moderation.ModerationCO;
 import com.szmengran.chatgpt.dto.moderation.ModerationQuery;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(name="openai", url="https://api.openai.com/", configuration = FeignClientConfiguration.class)
+@FeignClient(name="openai", url="https://api.openai.com", configuration = FeignClientConfiguration.class)
 public interface OpenAiClient {
     
     @GetMapping("/v1/models")
@@ -56,8 +59,14 @@ public interface OpenAiClient {
     @PostMapping("/v1/embeddings")
     EmbeddingCO createEmbeddings(@RequestBody EmbeddingCreateCmd request);
     
-    @PostMapping("/v1/audio/translations")
-    AudioCO createAudioTranslation(@RequestBody AudioCreateCmd audioCreateCmd);
+    @PostMapping(value = "/v1/audio/translations", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, headers = "Content-Type=multipart/form-data")
+    AudioCO createAudioTranslation(@RequestPart("model") String model, @RequestPart("file") MultipartFile file);
+    
+    @PostMapping(value = "/v1/audio/transcriptions", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, headers = "Content-Type=multipart/form-data")
+    AudioCO createAudioTranscription(@RequestPart("model") String model, @RequestPart("file") MultipartFile file);
+    
+    @PostMapping(value = "/v1/files", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, headers = "Content-Type=multipart/form-data")
+    File uploadFile(@RequestPart("purpose") String purpose, @RequestPart MultipartFile file);
     
     @GetMapping("/v1/files")
     OpenAiResponse<File> listFiles();
@@ -92,11 +101,11 @@ public interface OpenAiClient {
     @PostMapping("/v1/images/generations")
     ImageCO createImage(@RequestBody ImageCreateCmd imageCreateCmd);
 
-    @PostMapping("/v1/images/edits")
-    ImageCO createImageEdit(@RequestBody ImageCreateEditCmd imageCreateEditCmd);
+    @PostMapping(value = "/v1/images/edits", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, headers = "Content-Type=multipart/form-data")
+    ImageCO createImageEdit(@ModelAttribute ImageCreateEditCmd imageCreateEditCmd);
 
-    @PostMapping("/v1/images/variations")
-    ImageCO createImageVariation(@RequestBody ImageCreateVariationCmd imageCreateVariationCmd);
+    @PostMapping(value = "/v1/images/variations", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, headers = "Content-Type=multipart/form-data")
+    ImageCO createImageVariation(@ModelAttribute ImageCreateVariationCmd imageCreateVariationCmd);
 
     @PostMapping("/v1/moderations")
     ModerationCO createModeration(@RequestBody ModerationQuery request);

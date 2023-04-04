@@ -1,9 +1,6 @@
 package com.szmengran.chatgpt.wap;
 
-import com.szmengran.chatgpt.api.ChatCompletionFacade;
 import com.szmengran.chatgpt.api.CompletionFacade;
-import com.szmengran.chatgpt.dto.chat.ChatCompletionCO;
-import com.szmengran.chatgpt.dto.chat.ChatCompletionCreateCmd;
 import com.szmengran.chatgpt.dto.completion.CompletionCO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import com.szmengran.cola.dto.SingleResponse;

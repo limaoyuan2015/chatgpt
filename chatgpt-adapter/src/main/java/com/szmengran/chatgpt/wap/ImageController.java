@@ -8,6 +8,7 @@ import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmd;
 import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,22 +42,22 @@ public class ImageController {
      * @param imageCreateEditCmd
      * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.image.ImageCO> 
      * @author MaoYuan.Li
-     * @date: 2023/3/27 15:26
+     * @date: 2023/4/4 14:06
      */
     @PostMapping("/v1/images/edits")
-    public SingleResponse<ImageCO> edit(@RequestBody ImageCreateEditCmd imageCreateEditCmd) {
+    public SingleResponse<ImageCO> edit(@ModelAttribute ImageCreateEditCmd imageCreateEditCmd) {
         return imageFacade.edit(imageCreateEditCmd);
     }
     
     /** 
      * @description: Creates a variation of a given image.
-     * @param imageCreateVariationCmd 
+     * @param imageCreateVariationCmd
      * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.image.ImageCO> 
      * @author MaoYuan.Li
-     * @date: 2023/3/27 16:14
+     * @date: 2023/4/4 14:18
      */
     @PostMapping("/v1/images/variations")
-    public SingleResponse<ImageCO> variation(@RequestBody ImageCreateVariationCmd imageCreateVariationCmd) {
+    public SingleResponse<ImageCO> variation(@ModelAttribute ImageCreateVariationCmd imageCreateVariationCmd) {
         return imageFacade.variation(imageCreateVariationCmd);
     }
 }
