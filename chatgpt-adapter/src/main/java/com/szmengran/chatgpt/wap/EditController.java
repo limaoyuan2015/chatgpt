@@ -6,7 +6,7 @@ import com.szmengran.chatgpt.dto.edit.EditCreateCmd;
 import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +22,7 @@ public class EditController {
     @Resource
     private EditFacade editFacade;
     
-    @GetMapping("/v1/edits")
+    @PostMapping("/v1/edits")
     public SingleResponse<EditCO> edit(@RequestBody EditCreateCmd editCreateCmd) {
         return editFacade.edit(editCreateCmd);
     }

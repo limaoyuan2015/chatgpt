@@ -8,7 +8,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author MaoYuan.Li
@@ -24,14 +26,15 @@ public class AudioController {
     
     /** 
      * @description: Transcribes audio into the input language.
-     * @param audioCreateCmd 
-     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.audio.AudioCO> 
+     * @param model
+     * @param file
+     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.audio.AudioCO>
      * @author MaoYuan.Li
      * @date: 2023/3/27 15:50
      */
     @PostMapping("/v1/audio/transcriptions")
-    public SingleResponse<AudioCO> transcription(@RequestBody AudioCreateCmd audioCreateCmd) {
-        return audioFacade.transcription(audioCreateCmd);
+    public SingleResponse<AudioCO> transcription(@RequestParam("model") String model, @RequestParam("file") MultipartFile file) {
+        return audioFacade.transcription(model, file);
     }
     
     /** 

@@ -5,9 +5,11 @@ import com.szmengran.chatgpt.dto.OpenAiResponse;
 import com.szmengran.chatgpt.dto.file.DeleteFileCO;
 import com.szmengran.chatgpt.dto.file.File;
 import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
+import com.szmengran.chatgpt.infrastructure.openai.OpenAiFileClient;
 import com.szmengran.cola.dto.MultiResponse;
 import com.szmengran.cola.dto.SingleResponse;
 import jakarta.annotation.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +24,9 @@ public class FileFacadeImpl implements FileFacade {
     @Resource
     private OpenAiClient openAiClient;
     
+    @Resource
+    private OpenAiFileClient openAiFileClient;
+    
     @Override
     public MultiResponse<File> list() {
         OpenAiResponse<File> response = openAiClient.listFiles();
@@ -30,7 +35,7 @@ public class FileFacadeImpl implements FileFacade {
     
     @Override
     public SingleResponse<File> upload(final String purpose, final MultipartFile file) {
-        File fileData = openAiClient.uploadFile(purpose, file);
+        File fileData = openAiFileClient.uploadFile(MediaType.MULTIPART_FORM_DATA_VALUE, purpose, file);
         return SingleResponse.of(fileData);
     }
     

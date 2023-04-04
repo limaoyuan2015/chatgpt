@@ -4,9 +4,11 @@ import com.szmengran.chatgpt.api.AudioFacade;
 import com.szmengran.chatgpt.dto.audio.AudioCO;
 import com.szmengran.chatgpt.dto.audio.AudioCreateCmd;
 import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
+import com.szmengran.chatgpt.infrastructure.openai.OpenAiFileClient;
 import com.szmengran.cola.dto.SingleResponse;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author MaoYuan.Li
@@ -19,9 +21,12 @@ public class AudioFacadeImpl implements AudioFacade {
     @Resource
     private OpenAiClient openAiClient;
     
+    @Resource
+    private OpenAiFileClient openAiFileClient;
+
     @Override
-    public SingleResponse<AudioCO> transcription(final AudioCreateCmd audioCreateCmd) {
-        AudioCO audioCO = openAiClient.createAudioTranscription(audioCreateCmd);
+    public SingleResponse<AudioCO> transcription(final String model, final MultipartFile file) {
+        AudioCO audioCO = openAiFileClient.createAudioTranscription(model, file);
         return SingleResponse.of(audioCO);
     }
     

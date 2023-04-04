@@ -1,11 +1,10 @@
 package com.szmengran.chatgpt.infrastructure.openai;
 
 import com.szmengran.chatgpt.domain.config.ChatGPTProperties;
-import feign.Logger;
+import feign.Headers;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import jakarta.annotation.Resource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 
@@ -15,7 +14,7 @@ import org.springframework.http.MediaType;
  * @Version 1.0
  */
 @Configuration
-public class FeignClientConfiguration implements RequestInterceptor {
+public class FeignClientFileConfiguration implements RequestInterceptor {
     
     @Resource
     private ChatGPTProperties chatGPTProperties;
@@ -23,12 +22,6 @@ public class FeignClientConfiguration implements RequestInterceptor {
     @Override
     public void apply(final RequestTemplate requestTemplate) {
         requestTemplate.header("Authorization", "Bearer "+chatGPTProperties.getSecretKey());
-    }
-    
-    @Bean
-    Logger.Level feignLoggerLevel() {
-        //这里记录所有，根据实际情况选择合适的日志level
-        return Logger.Level.FULL;
     }
     
 }

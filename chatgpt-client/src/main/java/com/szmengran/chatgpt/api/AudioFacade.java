@@ -3,6 +3,7 @@ package com.szmengran.chatgpt.api;
 import com.szmengran.chatgpt.dto.audio.AudioCO;
 import com.szmengran.chatgpt.dto.audio.AudioCreateCmd;
 import com.szmengran.cola.dto.SingleResponse;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 音频转换为文本
@@ -12,7 +13,7 @@ import com.szmengran.cola.dto.SingleResponse;
  */
 public interface AudioFacade {
 
-    SingleResponse<AudioCO> transcription(AudioCreateCmd audioCreateCmd);
+    SingleResponse<AudioCO> transcription(String model, MultipartFile file);
     
     SingleResponse<AudioCO> translate(AudioCreateCmd audioCreateCmd);
 }

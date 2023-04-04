@@ -25,15 +25,12 @@ import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmd;
 import com.szmengran.chatgpt.dto.model.Model;
 import com.szmengran.chatgpt.dto.moderation.ModerationCO;
 import com.szmengran.chatgpt.dto.moderation.ModerationQuery;
-import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
 @FeignClient(name="openai", url="https://api.openai.com/", configuration = FeignClientConfiguration.class)
 public interface OpenAiClient {
@@ -58,18 +55,12 @@ public interface OpenAiClient {
 
     @PostMapping("/v1/embeddings")
     EmbeddingCO createEmbeddings(@RequestBody EmbeddingCreateCmd request);
-
-    @PostMapping("/v1/audio/transcriptions")
-    AudioCO createAudioTranscription(@RequestBody AudioCreateCmd audioCreateCmd);
     
     @PostMapping("/v1/audio/translations")
     AudioCO createAudioTranslation(@RequestBody AudioCreateCmd audioCreateCmd);
     
     @GetMapping("/v1/files")
     OpenAiResponse<File> listFiles();
-
-    @PostMapping("/v1/files")
-    File uploadFile(@Param("purpose") String purpose, @RequestPart MultipartFile file);
 
     @DeleteMapping("/v1/files/{fileId}")
     DeleteFileCO deleteFile(@PathVariable("fileId") String fileId);
