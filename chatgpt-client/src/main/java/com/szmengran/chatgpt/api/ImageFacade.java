@@ -3,7 +3,9 @@ package com.szmengran.chatgpt.api;
 import com.szmengran.chatgpt.dto.image.ImageCO;
 import com.szmengran.chatgpt.dto.image.ImageCreateCmd;
 import com.szmengran.chatgpt.dto.image.ImageCreateEditCmd;
+import com.szmengran.chatgpt.dto.image.ImageCreateEditCmdV2;
 import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmd;
+import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmdV2;
 import com.szmengran.cola.dto.SingleResponse;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -34,6 +36,15 @@ public interface ImageFacade {
      */
     SingleResponse<ImageCO> edit(ImageCreateEditCmd imageCreateEditCmd);
     
+    /** 
+     * @description: Creates an edited or extended image given an original image and a prompt.
+     * @param imageCreateEditCmdV2 
+     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.image.ImageCO> 
+     * @author MaoYuan.Li
+     * @date: 2023/4/24 14:56
+     */
+    SingleResponse<ImageCO> editV2(ImageCreateEditCmdV2 imageCreateEditCmdV2);
+    
     /**
      * @description: Creates a variation of a given image.
      * @param imageCreateVariationCmd
@@ -42,4 +53,6 @@ public interface ImageFacade {
      * @date: 2023/4/4 14:11
      */
     SingleResponse<ImageCO> variation(ImageCreateVariationCmd imageCreateVariationCmd);
+    
+    SingleResponse<ImageCO> variationV2(ImageCreateVariationCmdV2 imageCreateVariationCmdV2);
 }

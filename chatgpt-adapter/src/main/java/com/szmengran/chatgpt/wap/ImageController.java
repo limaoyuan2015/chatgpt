@@ -4,7 +4,9 @@ import com.szmengran.chatgpt.api.ImageFacade;
 import com.szmengran.chatgpt.dto.image.ImageCO;
 import com.szmengran.chatgpt.dto.image.ImageCreateCmd;
 import com.szmengran.chatgpt.dto.image.ImageCreateEditCmd;
+import com.szmengran.chatgpt.dto.image.ImageCreateEditCmdV2;
 import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmd;
+import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmdV2;
 import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -50,6 +52,18 @@ public class ImageController {
     }
     
     /** 
+     * @description: Creates an edited or extended image given an original image and a prompt.
+     * @param imageCreateEditCmdV2
+     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.image.ImageCO> 
+     * @author MaoYuan.Li
+     * @date: 2023/4/24 15:07
+     */
+    @PostMapping("/v2/images/edits")
+    public SingleResponse<ImageCO> editV2(@RequestBody ImageCreateEditCmdV2 imageCreateEditCmdV2) {
+        return imageFacade.editV2(imageCreateEditCmdV2);
+    }
+    
+    /** 
      * @description: Creates a variation of a given image.
      * @param imageCreateVariationCmd
      * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.image.ImageCO> 
@@ -59,5 +73,10 @@ public class ImageController {
     @PostMapping("/v1/images/variations")
     public SingleResponse<ImageCO> variation(@ModelAttribute ImageCreateVariationCmd imageCreateVariationCmd) {
         return imageFacade.variation(imageCreateVariationCmd);
+    }
+    
+    @PostMapping("/v2/images/variations")
+    public SingleResponse<ImageCO> variationV2(@RequestBody ImageCreateVariationCmdV2 imageCreateVariationCmdV2) {
+        return imageFacade.variationV2(imageCreateVariationCmdV2);
     }
 }

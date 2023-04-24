@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * A request for OpenAi to create a variation of an image
@@ -19,12 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @JsonInclude(Include.NON_NULL)
 @Data
-public class ImageCreateVariationCmd {
+public class ImageCreateVariationCmdV2 {
     
     /**
      * The image to edit. Must be a valid PNG file, less than 4MB, and square. If mask is not provided, image must have transparency, which will be used as the mask.
      */
-    private MultipartFile image;
+    private String imageUrl;
     
     /**
      * The number of images to generate. Must be between 1 and 10. Defaults to 1.
