@@ -1,8 +1,7 @@
 package com.szmengran.chatgpt.app.assembler;
 
 import com.szmengran.chatgpt.domain.config.ChatGPTProperties;
-import com.szmengran.chatgpt.dto.chat.ChatCompletionCreateCmd;
-import com.szmengran.chatgpt.dto.chat.ChatMessageRole;
+import com.szmengran.chatgpt.dto.chat.ChatCmd;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -12,16 +11,16 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ChatAssembler {
     
-    public static ChatCompletionCreateCmd converter(ChatCompletionCreateCmd chatCompletionCreateCmd, ChatGPTProperties chatGPTProperties) {
-        if (StringUtils.isBlank(chatCompletionCreateCmd.getModel())) {
-            chatCompletionCreateCmd.setModel(chatGPTProperties.getModel());
-        }
-    
-        chatCompletionCreateCmd.getMessages().forEach(chatMessage -> {
-            if (StringUtils.isBlank(chatMessage.getRole())) {
-                chatMessage.setRole(ChatMessageRole.USER.value());
-            }
-        });
-        return chatCompletionCreateCmd;
+    public static ChatCmd converter(ChatCmd chatCmd, ChatGPTProperties chatGPTProperties) {
+//        if (StringUtils.isBlank(chatCmd.getModel())) {
+//            chatCmd.setModel(chatGPTProperties.getModel());
+//        }
+//
+//        chatCmd.getMessages().forEach(chatMessage -> {
+//            if (StringUtils.isBlank(chatMessage.getRole())) {
+//                chatMessage.setRole(ChatMessageRole.USER.value());
+//            }
+//        });
+        return chatCmd;
     }
 }

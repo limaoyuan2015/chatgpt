@@ -54,5 +54,12 @@ public interface ImageFacade {
      */
     SingleResponse<ImageCO> variation(ImageCreateVariationCmd imageCreateVariationCmd);
     
+    /** 
+     * @description: Creates a variation of a given image.
+     * @param imageCreateVariationCmdV2 
+     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.image.ImageCO> 
+     * @author MaoYuan.Li
+     * @date: 2023/4/26 19:03
+     */
     SingleResponse<ImageCO> variationV2(ImageCreateVariationCmdV2 imageCreateVariationCmdV2);
 }

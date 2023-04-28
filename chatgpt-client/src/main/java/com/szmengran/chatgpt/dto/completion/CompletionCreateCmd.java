@@ -9,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -99,7 +98,7 @@ public class CompletionCreateCmd extends Command {
      * Up to 4 sequences where the API will stop generating further tokens.
      * The returned text will not contain the stop sequence.
      */
-    List<String> stop;
+    String stop;
 
     /**
      * Number between 0 and 1 (default 0) that penalizes new tokens based on whether they appear in the text so far.

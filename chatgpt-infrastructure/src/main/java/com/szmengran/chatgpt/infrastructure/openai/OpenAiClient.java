@@ -2,8 +2,7 @@ package com.szmengran.chatgpt.infrastructure.openai;
 
 import com.szmengran.chatgpt.dto.OpenAiResponse;
 import com.szmengran.chatgpt.dto.audio.AudioCO;
-import com.szmengran.chatgpt.dto.chat.ChatCompletionCO;
-import com.szmengran.chatgpt.dto.chat.ChatCompletionCreateCmd;
+import com.szmengran.chatgpt.dto.chat.ChatCmd;
 import com.szmengran.chatgpt.dto.completion.CompletionCO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import com.szmengran.chatgpt.dto.edit.EditCO;
@@ -24,6 +23,7 @@ import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmd;
 import com.szmengran.chatgpt.dto.model.Model;
 import com.szmengran.chatgpt.dto.moderation.ModerationCO;
 import com.szmengran.chatgpt.dto.moderation.ModerationQuery;
+import com.szmengran.chatgpt.infrastructure.openai.dto.chat.ChatCO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(name="openai", url="https://api.openai.com", configuration = FeignClientConfiguration.class)
+@FeignClient(name="openai", url="${openai.url}", configuration = FeignClientConfiguration.class)
 public interface OpenAiClient {
     
     @GetMapping("/v1/models")
@@ -51,7 +51,7 @@ public interface OpenAiClient {
     CompletionCO createCompletion(@RequestBody CompletionCreateCmd request);
     
     @PostMapping(value = "/v1/chat/completions", consumes = "application/json", produces = "application/json")
-    ChatCompletionCO createChatCompletion(@RequestBody ChatCompletionCreateCmd request);
+    ChatCO createChat(@RequestBody ChatCmd request);
 
     @PostMapping("/v1/edits")
     EditCO createEdit(@RequestBody EditCreateCmd request);

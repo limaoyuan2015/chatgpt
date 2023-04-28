@@ -75,6 +75,13 @@ public class ImageController {
         return imageFacade.variation(imageCreateVariationCmd);
     }
     
+    /** 
+     * @description: Creates a variation of a given image.
+     * @param imageCreateVariationCmdV2 
+     * @return: com.szmengran.cola.dto.SingleResponse<com.szmengran.chatgpt.dto.image.ImageCO> 
+     * @author MaoYuan.Li
+     * @date: 2023/4/26 19:04
+     */
     @PostMapping("/v2/images/variations")
     public SingleResponse<ImageCO> variationV2(@RequestBody ImageCreateVariationCmdV2 imageCreateVariationCmdV2) {
         return imageFacade.variationV2(imageCreateVariationCmdV2);

@@ -1,8 +1,8 @@
 package com.szmengran.chatgpt.wap;
 
-import com.szmengran.chatgpt.api.ChatCompletionFacade;
-import com.szmengran.chatgpt.dto.chat.ChatCompletionCO;
-import com.szmengran.chatgpt.dto.chat.ChatCompletionCreateCmd;
+import com.szmengran.chatgpt.api.ChatFacade;
+import com.szmengran.chatgpt.dto.chat.ChatCO;
+import com.szmengran.chatgpt.dto.chat.ChatCmd;
 import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
     
     @Resource
-    private ChatCompletionFacade chatCompletionFacade;
+    private ChatFacade chatFacade;
     
     @Operation(summary = "Creates a completion for the chat message")
     @PostMapping("/v1/chat/completions")
-    public SingleResponse<ChatCompletionCO> chatCompletions(@RequestBody ChatCompletionCreateCmd chatCompletionCreateCmd) {
-        return chatCompletionFacade.chatCompletion(chatCompletionCreateCmd);
+    public SingleResponse<ChatCO> chatCompletions(@RequestBody ChatCmd chatCmd) {
+        return chatFacade.chat(chatCmd);
     }
 }

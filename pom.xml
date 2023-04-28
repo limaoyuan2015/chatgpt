@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    
     <parent>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <groupId>org.springframework.boot</groupId>
+        <groupId>com.shopoo</groupId>
+        <artifactId>shopoo-component-dependencies</artifactId>
         <version>3.0.4</version>
     </parent>
 
@@ -22,10 +22,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.deploy.skip>true</maven.deploy.skip>
+        <mybatis-starter.version>2.2.2</mybatis-starter.version>
 
         <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
         <slf4j.version>2.0.6</slf4j.version>
-        
+        <spring-boot.version>3.0.4</spring-boot.version>
         <cola.components.version>5.0.0-SNAPSHOT</cola.components.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
     </properties>
@@ -123,11 +124,6 @@
                 <version>1.0.1</version>
             </dependency>
 
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.32</version>
-            </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
