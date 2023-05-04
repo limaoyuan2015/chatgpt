@@ -1,7 +1,7 @@
 package com.szmengran.chatgpt.app.complation;
 
 import com.szmengran.chatgpt.api.CompletionFacade;
-import com.szmengran.chatgpt.dto.completion.CompletionCO;
+import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
 import com.szmengran.cola.dto.SingleResponse;
@@ -20,9 +20,9 @@ public class CompletionFacadeImpl implements CompletionFacade {
     private OpenAiClient openAiClient;
     
     @Override
-    public SingleResponse<CompletionCO> completions(final CompletionCreateCmd completionCreateCmd) {
-        CompletionCO completionCO = openAiClient.createCompletion(completionCreateCmd);
-        return SingleResponse.of(completionCO);
+    public SingleResponse<CompletionDTO> completions(final CompletionCreateCmd completionCreateCmd) {
+        CompletionDTO completionDTO = openAiClient.createCompletion(completionCreateCmd);
+        return SingleResponse.of(completionDTO);
     }
     
 }

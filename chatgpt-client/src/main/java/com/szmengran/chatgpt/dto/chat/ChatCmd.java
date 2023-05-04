@@ -16,13 +16,9 @@ import static io.swagger.v3.oas.annotations.media.Schema.AccessMode.READ_ONLY;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(Include.NON_NULL)
-public class ChatCmd {
+public class ChatCmd extends ChatCreateCmd {
 
     private String chatId;
-    
-    @Schema(name = "问题")
-    @NotNull(message = "问题不能为空")
-    private String question;
     
     @Schema(accessMode = READ_ONLY)
     private String username;

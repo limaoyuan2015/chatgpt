@@ -3,15 +3,16 @@ package com.szmengran.chatgpt.infrastructure.repository;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.szmengran.base.utils.IDUtils;
 import com.szmengran.chatgpt.domain.chat.repository.ChatRepository;
+import com.szmengran.chatgpt.domain.config.ChatGPTProperties;
 import com.szmengran.chatgpt.domain.entity.ChatDetail;
 import com.szmengran.chatgpt.domain.entity.ChatTitle;
 import com.szmengran.chatgpt.domain.utils.IDTypes;
+import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
-import com.szmengran.chatgpt.dto.chat.ChatDTO;
+import com.szmengran.chatgpt.dto.chat.ChatCreateCmd;
+import com.szmengran.chatgpt.dto.chat.ChatMessage;
+import com.szmengran.chatgpt.infrastructure.assembler.Assembler;
 import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
-import com.szmengran.chatgpt.infrastructure.openai.dto.Usage;
-import com.szmengran.chatgpt.infrastructure.openai.dto.chat.ChatCO;
-import com.szmengran.chatgpt.infrastructure.openai.dto.chat.ChatChoice;
 import com.szmengran.chatgpt.infrastructure.repository.mapper.ChatDetailMapper;
 import com.szmengran.chatgpt.infrastructure.repository.mapper.ChatTitleMapper;
 import jakarta.annotation.Resource;
@@ -19,7 +20,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @Author MaoYuan.Li
@@ -38,24 +38,25 @@ public class ChatRepositoryImpl implements ChatRepository {
     @Resource
     private OpenAiClient openAiClient;
     
+    @Resource
+    private ChatGPTProperties chatGPTProperties;
+    
     @Override
-    public ChatDTO chat(final ChatCmd chatCmd) {
-        ChatCO chatCO = openAiClient.createChat(chatCmd);
-        List<ChatChoice> list = Optional.of(chatCO).get().getChoices();
-        ChatChoice chatChoice = Optional.of(list).get().get(0);
-        Usage usage = Optional.of(chatCO).get().getUsage();
-
+    public ChatCO chat(final ChatCmd chatCmd) {
+        ChatCreateCmd chatCreateCmd = Assembler.transform(chatCmd, chatGPTProperties);
+        ChatCO chatCO = openAiClient.createChat(chatCreateCmd);
         String chatDetailId = IDUtils.getSnowId(IDTypes.CHAT_DETAIL);
-        ChatDTO chatDTO = ChatDTO.builder().chatDetailId(chatDetailId).answer(chatChoice.getMessage().getContent()).promptTokens(usage.getPromptTokens()).completionTokens(usage.getCompletionTokens()).totalTokens(usage.getTotalTokens()).build();
+        chatCO.setChatDetailId(chatDetailId);
         if (StringUtils.isBlank(chatCmd.getChatId())) {
             String chatId = IDUtils.getSnowId(IDTypes.CHAT_TITLE);
-            String question = chatCmd.getQuestion();
+            List<ChatMessage> list = chatCmd.getMessages();
+            String question = list.get(0).getContent();
             String title = question.length() > 20 ? question.substring(0, 20) : question;
-            chatDTO.setChatId(chatId);
-            chatDTO.setTitle(title);
+            chatCO.setChatId(chatId);
+            chatCO.setTitle(title);
         }
 
-        return chatDTO;
+        return chatCO;
     }
     
     @Override

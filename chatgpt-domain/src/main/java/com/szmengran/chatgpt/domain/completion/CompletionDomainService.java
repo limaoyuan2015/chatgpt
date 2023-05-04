@@ -1,6 +1,7 @@
 package com.szmengran.chatgpt.domain.completion;
 
-import com.szmengran.chatgpt.domain.chat.dto.ChatCO;
+import com.szmengran.chatgpt.domain.completion.repository.CompletionRepository;
+import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,9 @@ import org.springframework.stereotype.Service;
 public class CompletionDomainService {
 
     @Resource
-    private CompletionDomainService completionDomainService;
-
-    public ChatCO chatCompletion(ChatCmd chatCmd) {
+    private CompletionRepository completionRepository;
+    
+    public ChatCO completion(ChatCmd chatCmd) {
         return null;
     }
 }

@@ -1,8 +1,7 @@
 package com.szmengran.chatgpt.dto.data;
 
-import lombok.Data;
-
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 
 @Data
 public class CustomerDTO{

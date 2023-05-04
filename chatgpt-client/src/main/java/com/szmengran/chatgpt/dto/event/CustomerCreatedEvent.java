@@ -1,7 +1,5 @@
 package com.szmengran.chatgpt.dto.event;
 
-import static com.szmengran.chatgpt.dto.event.DomainEventConstant.CUSTOMER_CREATED_TOPIC;
-
 /**
  * CustomerCreatedEvent
  *

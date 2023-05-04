@@ -2,8 +2,9 @@ package com.szmengran.chatgpt.infrastructure.openai;
 
 import com.szmengran.chatgpt.dto.OpenAiResponse;
 import com.szmengran.chatgpt.dto.audio.AudioCO;
-import com.szmengran.chatgpt.dto.chat.ChatCmd;
-import com.szmengran.chatgpt.dto.completion.CompletionCO;
+import com.szmengran.chatgpt.dto.chat.ChatCO;
+import com.szmengran.chatgpt.dto.chat.ChatCreateCmd;
+import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import com.szmengran.chatgpt.dto.edit.EditCO;
 import com.szmengran.chatgpt.dto.edit.EditCreateCmd;
@@ -23,7 +24,6 @@ import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmd;
 import com.szmengran.chatgpt.dto.model.Model;
 import com.szmengran.chatgpt.dto.moderation.ModerationCO;
 import com.szmengran.chatgpt.dto.moderation.ModerationQuery;
-import com.szmengran.chatgpt.infrastructure.openai.dto.chat.ChatCO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,10 +48,10 @@ public interface OpenAiClient {
     Model getModel(@PathVariable("modelId") String modelId);
 
     @PostMapping(value = "/v1/completions", consumes = "application/json", produces = "application/json")
-    CompletionCO createCompletion(@RequestBody CompletionCreateCmd request);
+    CompletionDTO createCompletion(@RequestBody CompletionCreateCmd request);
     
     @PostMapping(value = "/v1/chat/completions", consumes = "application/json", produces = "application/json")
-    ChatCO createChat(@RequestBody ChatCmd request);
+    ChatCO createChat(@RequestBody ChatCreateCmd request);
 
     @PostMapping("/v1/edits")
     EditCO createEdit(@RequestBody EditCreateCmd request);
@@ -66,7 +66,7 @@ public interface OpenAiClient {
     AudioCO createAudioTranscription(@RequestPart("model") String model, @RequestPart("file") MultipartFile file);
     
     @PostMapping(value = "/v1/files", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, headers = "Content-Type=multipart/form-data")
-    File uploadFile(@RequestPart("purpose") String purpose, @RequestPart MultipartFile file);
+    File uploadFile(@RequestPart("purpose") String purpose, @RequestPart("file") MultipartFile file);
     
     @GetMapping("/v1/files")
     OpenAiResponse<File> listFiles();
@@ -81,7 +81,7 @@ public interface OpenAiClient {
     FineTune createFineTune(@RequestBody FineTuneCreateCmd request);
 
     @PostMapping("/v1/completions")
-    CompletionCO createFineTuneCompletion(@RequestBody CompletionCreateCmd request);
+    CompletionDTO createFineTuneCompletion(@RequestBody CompletionCreateCmd request);
 
     @GetMapping("/v1/fine-tunes")
     OpenAiResponse<FineTune> listFineTunes();

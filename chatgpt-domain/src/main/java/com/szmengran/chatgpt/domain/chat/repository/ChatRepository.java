@@ -2,8 +2,8 @@ package com.szmengran.chatgpt.domain.chat.repository;
 
 import com.szmengran.chatgpt.domain.entity.ChatDetail;
 import com.szmengran.chatgpt.domain.entity.ChatTitle;
+import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
-import com.szmengran.chatgpt.dto.chat.ChatDTO;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public interface ChatRepository {
      * @author MaoYuan.Li
      * @date: 2023/4/27 17:13
      */
-    ChatDTO chat(ChatCmd chatCmd);
+    ChatCO chat(ChatCmd chatCmd);
     
     void addChatTitle(ChatTitle chatTitle);
     void addChatDetail(ChatDetail chatDetail);

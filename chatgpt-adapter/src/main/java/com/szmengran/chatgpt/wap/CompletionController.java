@@ -1,7 +1,7 @@
 package com.szmengran.chatgpt.wap;
 
 import com.szmengran.chatgpt.api.CompletionFacade;
-import com.szmengran.chatgpt.dto.completion.CompletionCO;
+import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +26,7 @@ public class CompletionController {
     
     @Operation(summary = "Creates a completion for the chat message")
     @PostMapping("/v1/completions")
-    public SingleResponse<CompletionCO> completions(@RequestBody CompletionCreateCmd completionCreateCmd) {
+    public SingleResponse<CompletionDTO> completions(@RequestBody CompletionCreateCmd completionCreateCmd) {
         return completionFacade.completions(completionCreateCmd);
     }
 }

@@ -1,6 +1,6 @@
 package com.szmengran.chatgpt.api;
 
-import com.szmengran.chatgpt.dto.completion.CompletionCO;
+import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import com.szmengran.cola.dto.SingleResponse;
 
@@ -18,5 +18,5 @@ public interface CompletionFacade {
      * @author MaoYuan.Li
      * @date: 2023/3/23 14:14
      */
-    SingleResponse<CompletionCO> completions(CompletionCreateCmd completionCreateCmd);
+    SingleResponse<CompletionDTO> completions(CompletionCreateCmd completionCreateCmd);
 }

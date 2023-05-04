@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.szmengran</groupId>
         <artifactId>chatgpt-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -15,7 +15,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.szmengran</groupId>
+            <groupId>com.szmengran.cola</groupId>
             <artifactId>cola-component-dto</artifactId>
         </dependency>
         <dependency>
@@ -23,7 +23,7 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.szmengran</groupId>
+            <groupId>com.szmengran.cola</groupId>
             <artifactId>cola-component-base</artifactId>
         </dependency>
         <dependency>

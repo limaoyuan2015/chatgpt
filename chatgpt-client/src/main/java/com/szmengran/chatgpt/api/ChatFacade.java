@@ -1,7 +1,7 @@
 package com.szmengran.chatgpt.api;
 
+import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
-import com.szmengran.chatgpt.dto.chat.ChatDTO;
 import com.szmengran.cola.dto.SingleResponse;
 
 public interface ChatFacade {
@@ -13,6 +13,6 @@ public interface ChatFacade {
      * @author MaoYuan.Li
      * @date: 2023/3/23 12:07
      */
-    SingleResponse<ChatDTO> chat(ChatCmd chatCmd);
+    SingleResponse<ChatCO> chat(ChatCmd chatCmd);
 
 }

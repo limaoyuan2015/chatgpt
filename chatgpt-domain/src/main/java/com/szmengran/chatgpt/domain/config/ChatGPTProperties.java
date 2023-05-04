@@ -18,5 +18,8 @@ public class ChatGPTProperties {
     private String organizationId;
     private String model;
     private String user;
+    private String role;
+    private Integer maxTokens;
+    private Double temperature;
     
 }
