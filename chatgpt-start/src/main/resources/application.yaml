@@ -17,5 +17,6 @@ spring:
         server-addr: ${NACOS_SERVER_ADDRESS}
   config:
     import:
+      - nacos:common-oauth2-resource-server.yaml
       - nacos:knife4j.yaml
       - nacos:chatgpt-start.yaml
