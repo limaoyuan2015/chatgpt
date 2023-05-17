@@ -24,8 +24,10 @@ import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmd;
 import com.szmengran.chatgpt.dto.model.Model;
 import com.szmengran.chatgpt.dto.moderation.ModerationCO;
 import com.szmengran.chatgpt.dto.moderation.ModerationQuery;
+import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +36,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import reactor.core.publisher.Flux;
 
 @FeignClient(name="openai", url="${openai.url}", configuration = FeignClientConfiguration.class)
 public interface OpenAiClient {
@@ -50,8 +55,14 @@ public interface OpenAiClient {
     @PostMapping(value = "/v1/completions", consumes = "application/json", produces = "application/json")
     CompletionDTO createCompletion(@RequestBody CompletionCreateCmd request);
     
-    @PostMapping(value = "/v1/chat/completions", consumes = "application/json", produces = "application/json")
-    ChatCO createChat(@RequestBody ChatCreateCmd request);
+    @PostMapping(value = "/v1/completions", consumes = "application/json", produces = "application/json")
+    Response createCompletionStream(@RequestBody CompletionCreateCmd request);
+    
+    @PostMapping(value = "/v1/chat/completions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    ChatCO chat(@RequestBody ChatCreateCmd request);
+
+    @PostMapping(value = "/v1/chat/completions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    Response chatStream(@RequestBody ChatCreateCmd request);
 
     @PostMapping("/v1/edits")
     EditCO createEdit(@RequestBody EditCreateCmd request);

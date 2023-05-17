@@ -1,12 +1,13 @@
 package com.szmengran.chatgpt.app.complation;
 
 import com.szmengran.chatgpt.api.CompletionFacade;
-import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
+import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
 import com.szmengran.cola.dto.SingleResponse;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 /**
  * @Author MaoYuan.Li
@@ -20,9 +21,18 @@ public class CompletionFacadeImpl implements CompletionFacade {
     private OpenAiClient openAiClient;
     
     @Override
-    public SingleResponse<CompletionDTO> completions(final CompletionCreateCmd completionCreateCmd) {
-        CompletionDTO completionDTO = openAiClient.createCompletion(completionCreateCmd);
-        return SingleResponse.of(completionDTO);
+    public Mono<SingleResponse<CompletionDTO>> completions(final CompletionCreateCmd completionCreateCmd) {
+        return Mono.create(emitter -> {
+            try {
+                // 调用OpenFeign客户端方法并获取响应结果
+                CompletionDTO completionDTO = openAiClient.createCompletion(completionCreateCmd);
+            
+                // 将结果通过emitter发送给Mono
+                emitter.success(SingleResponse.of(completionDTO));
+            } catch (Exception e) {
+                // 发生异常时发送错误信号给Mono
+                emitter.error(e);
+            }
+        });
     }
-    
 }

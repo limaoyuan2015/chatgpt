@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.szmengran.cola</groupId>
         <artifactId>cola-components-dependencies</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.6</version>
     </parent>
 
     <groupId>com.szmengran</groupId>
@@ -22,13 +22,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.deploy.skip>true</maven.deploy.skip>
-        <mybatis-starter.version>2.2.2</mybatis-starter.version>
-
-        <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
-        <slf4j.version>2.0.6</slf4j.version>
-        <spring-boot.version>3.0.4</spring-boot.version>
-        <cola.components.version>5.0.0-SNAPSHOT</cola.components.version>
-        <mapstruct.version>1.5.3.Final</mapstruct.version>
     </properties>
 
     <modules>
@@ -55,18 +48,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2022.0.2</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>${hibernate-validator.version}</version>
-            </dependency>
             <!--Project modules-->
             <dependency>
                 <groupId>com.szmengran</groupId>
@@ -94,60 +75,6 @@
                 <version>${project.version}</version>
             </dependency>
             <!--Project modules End-->
-
-            <!--Validation API-->
-            <dependency>
-                <groupId>jakarta.el</groupId>
-                <artifactId>jakarta.el-api</artifactId>
-                <version>5.0.1</version>
-            </dependency>
-            <!--Validation API End -->
-
-            <!-- Misc -->
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>2.0.24</version>
-            </dependency>
-            <!-- Misc End -->
-
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-oauth2-authorization-server</artifactId>
-                <version>1.0.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>3.0.1</version>
-            </dependency>
-    
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-                <version>2022.0.0.0-RC1</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-                <version>4.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-spring-boot-starter</artifactId>
-                <version>3.1.8</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-openfeign</artifactId>
-                <version>4.0.1</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

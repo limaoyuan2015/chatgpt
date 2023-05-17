@@ -1,7 +1,6 @@
 package com.szmengran.chatgpt.infrastructure.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.szmengran.base.utils.IDUtils;
 import com.szmengran.chatgpt.domain.chat.repository.ChatRepository;
 import com.szmengran.chatgpt.domain.config.ChatGPTProperties;
 import com.szmengran.chatgpt.domain.entity.ChatDetail;
@@ -15,10 +14,19 @@ import com.szmengran.chatgpt.infrastructure.assembler.Assembler;
 import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
 import com.szmengran.chatgpt.infrastructure.repository.mapper.ChatDetailMapper;
 import com.szmengran.chatgpt.infrastructure.repository.mapper.ChatTitleMapper;
+import com.szmengran.cola.base.utils.IDUtils;
+import feign.Response;
 import jakarta.annotation.Resource;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
+import reactor.core.publisher.Flux;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -44,7 +52,7 @@ public class ChatRepositoryImpl implements ChatRepository {
     @Override
     public ChatCO chat(final ChatCmd chatCmd) {
         ChatCreateCmd chatCreateCmd = Assembler.transform(chatCmd, chatGPTProperties);
-        ChatCO chatCO = openAiClient.createChat(chatCreateCmd);
+        ChatCO chatCO = openAiClient.chat(chatCreateCmd);
         String chatDetailId = IDUtils.getSnowId(IDTypes.CHAT_DETAIL);
         chatCO.setChatDetailId(chatDetailId);
         if (StringUtils.isBlank(chatCmd.getChatId())) {
@@ -57,6 +65,12 @@ public class ChatRepositoryImpl implements ChatRepository {
         }
 
         return chatCO;
+    }
+    
+    @Override
+    public Response chatStream(final ChatCmd chatCmd) {
+        ChatCreateCmd chatCreateCmd = Assembler.transform(chatCmd, chatGPTProperties);
+        return openAiClient.chatStream(chatCreateCmd);
     }
     
     @Override

@@ -24,11 +24,11 @@ public class FeignClientConfiguration implements RequestInterceptor {
     public void apply(final RequestTemplate requestTemplate) {
         requestTemplate.header("Authorization", "Bearer "+chatGPTProperties.getSecretKey());
     }
-    
+
     @Bean
     Logger.Level feignLoggerLevel() {
         //这里记录所有，根据实际情况选择合适的日志level
-        return Logger.Level.FULL;
+        return chatGPTProperties.getLevel();
     }
     
 }

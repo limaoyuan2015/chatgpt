@@ -1,6 +1,11 @@
 package com.szmengran.chatgpt.infrastructure.repository;
 
 import com.szmengran.chatgpt.domain.completion.repository.CompletionRepository;
+import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
+import com.szmengran.chatgpt.dto.completion.CompletionDTO;
+import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
+import feign.Response;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,4 +15,17 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CompletionRepositoryImpl implements CompletionRepository {
+    
+    @Resource
+    private OpenAiClient openAiClient;
+    
+    @Override
+    public Response completionsStream(final CompletionCreateCmd completionCreateCmd) {
+        return openAiClient.createCompletionStream(completionCreateCmd);
+    }
+    
+    @Override
+    public CompletionDTO createCompletion(final CompletionCreateCmd completionCreateCmd) {
+        return openAiClient.createCompletion(completionCreateCmd);
+    }
 }

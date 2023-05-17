@@ -16,19 +16,19 @@ import java.time.LocalDateTime;
 @Configuration
 public class MyMetaObjectHandler implements MetaObjectHandler {
     
-    private final static String CREATE_DATE = "createTime";
-    private final static String UPDATE_DATE = "updateTime";
+    private final static String CREATE_TIME = "createTime";
+    private final static String UPDATE_TIME = "updateTime";
 
     @Override
     public void insertFill(MetaObject metaObject) {
         //创建时间
-        strictInsertFill(metaObject, CREATE_DATE, LocalDateTime.class, LocalDateTime.now());
-        strictInsertFill(metaObject, UPDATE_DATE, LocalDateTime.class, LocalDateTime.now());
+        strictInsertFill(metaObject, CREATE_TIME, LocalDateTime.class, LocalDateTime.now());
+        strictInsertFill(metaObject, UPDATE_TIME, LocalDateTime.class, LocalDateTime.now());
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         //更新时间
-        strictUpdateFill(metaObject, UPDATE_DATE, LocalDateTime.class, LocalDateTime.now());
+        strictUpdateFill(metaObject, UPDATE_TIME, LocalDateTime.class, LocalDateTime.now());
     }
 }

@@ -1,6 +1,7 @@
 package com.szmengran.chatgpt.infrastructure.assembler;
 
 import com.szmengran.chatgpt.domain.config.ChatGPTProperties;
+import com.szmengran.chatgpt.domain.converter.Converter;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
 import com.szmengran.chatgpt.dto.chat.ChatCreateCmd;
 import com.szmengran.chatgpt.dto.chat.ChatMessage;
@@ -17,18 +18,18 @@ import java.util.Optional;
 public class Assembler {
     
     public static ChatCreateCmd transform(ChatCmd chatCmd, ChatGPTProperties chatGPTProperties) {
-        Assert.notNull(chatGPTProperties.getTemperature(), "配置信息temperature不能为空");
-        Assert.notNull(chatGPTProperties.getMaxTokens(), "配置信息最大token数不能为空");
-        Assert.notNull(chatGPTProperties.getModel(), "配置信息模型类型数不能为空");
-        Assert.notNull(chatGPTProperties.getRole(), "配置信息角色不能为空");
+        Assert.notNull(chatGPTProperties.getTemperature(), "config msg temperature can't be null");
+        Assert.notNull(chatGPTProperties.getMaxTokens(), "default config token can't be null");
+        Assert.notNull(chatGPTProperties.getModel(), "default config model can't be null");
+        Assert.notNull(chatGPTProperties.getRole(), "default config role can't be null");
         List<ChatMessage> list = chatCmd.getMessages();
-        Assert.isTrue(list != null && !list.isEmpty(), "问题不能为空");
+        Assert.isTrue(list != null && !list.isEmpty(), "question can't be null");
         list.forEach(msg -> {
             msg.setRole(Optional.ofNullable(msg.getRole()).orElse(chatGPTProperties.getRole()));
         });
         chatCmd.setMaxTokens(Optional.ofNullable(chatCmd.getMaxTokens()).orElse(chatGPTProperties.getMaxTokens()));
-        chatCmd.setModel(Optional.ofNullable(chatCmd.getModel()).orElse(chatGPTProperties.getModel()));
+        chatCmd.setModel(Optional.ofNullable(chatCmd.getModel()).orElse(chatGPTProperties.getModel().get("chat")));
         chatCmd.setTemperature(Optional.ofNullable(chatCmd.getTemperature()).orElse(chatGPTProperties.getTemperature()));
-        return chatCmd;
+        return Converter.INSTANCE.toChatCreateCmd(chatCmd);
     }
 }

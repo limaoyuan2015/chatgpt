@@ -3,6 +3,8 @@ package com.szmengran.chatgpt.domain.converter;
 import com.szmengran.chatgpt.domain.entity.ChatDetail;
 import com.szmengran.chatgpt.domain.entity.ChatTitle;
 import com.szmengran.chatgpt.dto.chat.ChatCO;
+import com.szmengran.chatgpt.dto.chat.ChatCmd;
+import com.szmengran.chatgpt.dto.chat.ChatCreateCmd;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -19,4 +21,6 @@ public interface Converter {
     ChatDetail toChatDetail(ChatCO chatCO);
     
     ChatTitle toChatTitle(ChatCO chatCO);
+    
+    ChatCreateCmd toChatCreateCmd(ChatCmd chatCmd);
 }
