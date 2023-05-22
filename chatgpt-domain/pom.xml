@@ -26,10 +26,6 @@
             <groupId>com.szmengran.cola</groupId>
             <artifactId>cola-component-exception</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.szmengran.cola</groupId>
-            <artifactId>cola-component-base</artifactId>
-        </dependency>
         <!-- COLA components End-->
         
         <dependency>
