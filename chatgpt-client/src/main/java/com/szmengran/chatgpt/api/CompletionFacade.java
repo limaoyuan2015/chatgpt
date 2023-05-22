@@ -20,5 +20,5 @@ public interface CompletionFacade {
      * @author MaoYuan.Li
      * @date: 2023/3/23 14:14
      */
-    Mono<SingleResponse<CompletionDTO>> completions(CompletionCreateCmd completionCreateCmd);
+    Mono<SingleResponse<CompletionDTO>> completions(Mono<CompletionCreateCmd> completionCreateCmd);
 }

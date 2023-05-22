@@ -4,7 +4,7 @@ spring:
   profiles:
     active: ${ENVIRONMENT:dev}
   application:
-    name: chatgpt-start
+    name: chatgpt
   cloud:
     nacos:
       username: ${NACOS_USERNAME}
@@ -20,4 +20,4 @@ spring:
       - nacos:common.yaml
       - nacos:common-oauth2-resource-server.yaml
       - nacos:knife4j.yaml
-      - nacos:chatgpt-start.yaml
+      - nacos:chatgpt.yaml

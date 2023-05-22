@@ -39,6 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @FeignClient(name="openai", url="${openai.url}", configuration = FeignClientConfiguration.class)
 public interface OpenAiClient {
@@ -54,6 +55,9 @@ public interface OpenAiClient {
 
     @PostMapping(value = "/v1/completions", consumes = "application/json", produces = "application/json")
     CompletionDTO createCompletion(@RequestBody CompletionCreateCmd request);
+    
+    @PostMapping(value = "/v2/completions", consumes = "application/json", produces = "application/json")
+    Mono<CompletionDTO> createCompletion2(@RequestBody Mono<CompletionCreateCmd> request);
     
     @PostMapping(value = "/v1/completions", consumes = "application/json", produces = "application/json")
     Response createCompletionStream(@RequestBody CompletionCreateCmd request);

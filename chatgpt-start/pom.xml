@@ -10,7 +10,7 @@
 
     <artifactId>chatgpt-start</artifactId>
     <packaging>jar</packaging>
-    <name>start</name>
+    <name>chatgpt-start</name>
 
     <dependencies>
         <dependency>
@@ -40,7 +40,7 @@
                 <version>3.3.1</version>
                 <configuration>
                     <from>
-                        <image>openjdk:17.0.2</image>
+                        <image>registry.cn-guangzhou.aliyuncs.com/szmengran/openjdk:17.0.2</image>
                     </from>
                     <to>
                         <image>registry.cn-guangzhou.aliyuncs.com/szmengran/chatpgt</image>
@@ -48,8 +48,8 @@
                             <tag>${project.version}</tag>
                         </tags>
                         <auth>
-                            <username></username>
-                            <password></password>
+                            <username>${aliyunUsername}</username>
+                            <password>${aliyunPassword}</password>
                         </auth>
                     </to>
                     <container>
