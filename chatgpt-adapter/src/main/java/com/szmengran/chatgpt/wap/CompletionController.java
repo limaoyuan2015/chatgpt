@@ -1,9 +1,12 @@
 package com.szmengran.chatgpt.wap;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.szmengran.chatgpt.api.CompletionFacade;
 import com.szmengran.chatgpt.domain.completion.CompletionDomainService;
-import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
+import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
 import com.szmengran.cola.dto.SingleResponse;
 import feign.Response;
@@ -11,20 +14,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.MediaType;
+
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 /**
  * @Author MaoYuan.Li
@@ -43,7 +37,7 @@ public class CompletionController {
     
     @Operation(summary = "Creates a completion for the chat message")
     @PostMapping("/v1/completions")
-    public Mono<SingleResponse<CompletionDTO>> completions(@RequestBody CompletionCreateCmd completionCreateCmd) {
+    public SingleResponse<CompletionDTO> completions(@RequestBody CompletionCreateCmd completionCreateCmd) {
         return completionFacade.completions(completionCreateCmd);
     }
     

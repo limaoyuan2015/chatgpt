@@ -5,9 +5,11 @@ import com.szmengran.chatgpt.domain.completion.repository.CompletionRepository;
 import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
+import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import feign.Response;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
@@ -34,8 +36,12 @@ public class CompletionDomainService {
     @Resource
     private CompletionRepository completionRepository;
     
-    public ChatCO completion(ChatCmd chatCmd) {
-        return null;
+    @SneakyThrows
+    public CompletionDTO completion(CompletionCreateCmd completionCreateCmd) {
+        Future<CompletionDTO> future = executorService.submit(() -> {
+            return completionRepository.createCompletion(completionCreateCmd);
+        });
+        return future.get();
     }
     
     public void completionsStream(CompletionCreateCmd completionCreateCmd, HttpServletResponse httpServletResponse) {

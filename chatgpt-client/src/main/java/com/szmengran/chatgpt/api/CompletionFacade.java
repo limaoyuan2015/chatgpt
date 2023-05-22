@@ -1,10 +1,8 @@
 package com.szmengran.chatgpt.api;
 
-import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
+import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.cola.dto.SingleResponse;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
-import reactor.core.publisher.Mono;
 
 /**
  * @Author MaoYuan.Li
@@ -20,5 +18,5 @@ public interface CompletionFacade {
      * @author MaoYuan.Li
      * @date: 2023/3/23 14:14
      */
-    Mono<SingleResponse<CompletionDTO>> completions(CompletionCreateCmd completionCreateCmd);
+    SingleResponse<CompletionDTO> completions(CompletionCreateCmd completionCreateCmd);
 }
