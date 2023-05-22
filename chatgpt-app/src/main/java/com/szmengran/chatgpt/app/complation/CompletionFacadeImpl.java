@@ -1,6 +1,5 @@
 package com.szmengran.chatgpt.app.complation;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.szmengran.chatgpt.api.CompletionFacade;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import com.szmengran.chatgpt.dto.completion.CompletionDTO;
@@ -22,21 +21,25 @@ public class CompletionFacadeImpl implements CompletionFacade {
     private OpenAiClient openAiClient;
     
     @Override
-    public Mono<SingleResponse<CompletionDTO>> completions(final Mono<CompletionCreateCmd> completionCreateCmd) {
-        return Mono.create(emitter -> {
-            try {
-                // 调用OpenFeign客户端方法并获取响应结果
-                Mono<CompletionDTO> mono = openAiClient.createCompletion(completionCreateCmd);
-                mono.subscribe((completionDTO) -> {
-                    // 将结果通过emitter发送给Mono
-                    emitter.success(SingleResponse.of(completionDTO));
-                }, error -> {
-                    emitter.error(error);
+    public Mono<SingleResponse<CompletionDTO>> completions(final CompletionCreateCmd completionCreateCmd) {
+        return openAiClient.createCompletion2(completionCreateCmd)
+                .flatMap(completionDTO -> {
+                    return Mono.just(SingleResponse.of(completionDTO));
                 });
-            } catch (Exception e) {
-                // 发生异常时发送错误信号给Mono
-                emitter.error(e);
-            }
-        });
+//        return Mono.create(emitter -> {
+//            try {
+//                // 调用OpenFeign客户端方法并获取响应结果
+//                Mono<CompletionDTO> mono = openAiClient.createCompletion2(completionCreateCmd);
+//                mono.subscribe((completionDTO) -> {
+//                    // 将结果通过emitter发送给Mono
+//                    emitter.success(SingleResponse.of(completionDTO));
+//                }, error -> {
+//                    emitter.error(error);
+//                });
+//            } catch (Exception e) {
+//                // 发生异常时发送错误信号给Mono
+//                emitter.error(e);
+//            }
+//        });
     }
 }

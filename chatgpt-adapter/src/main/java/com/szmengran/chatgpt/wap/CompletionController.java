@@ -43,7 +43,7 @@ public class CompletionController {
     
     @Operation(summary = "Creates a completion for the chat message")
     @PostMapping("/v1/completions")
-    public Mono<SingleResponse<CompletionDTO>> completions(@RequestBody Mono<CompletionCreateCmd> completionCreateCmd) {
+    public Mono<SingleResponse<CompletionDTO>> completions(@RequestBody CompletionCreateCmd completionCreateCmd) {
         return completionFacade.completions(completionCreateCmd);
     }
     
