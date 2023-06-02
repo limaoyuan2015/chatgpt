@@ -22,6 +22,6 @@ public class CompletionFacadeImpl implements CompletionFacade {
     
     @Override
     public SingleResponse<CompletionDTO> completions(final CompletionCreateCmd completionCreateCmd) {
-        return SingleResponse.of(completionDomainService.completion(completionCreateCmd));
+        return SingleResponse.of(completionDomainService.completions(completionCreateCmd));
     }
 }

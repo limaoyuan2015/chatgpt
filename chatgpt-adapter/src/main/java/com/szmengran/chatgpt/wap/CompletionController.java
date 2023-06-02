@@ -14,8 +14,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import org.springframework.util.StreamUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,13 +35,14 @@ public class CompletionController {
     
     @Resource
     private CompletionFacade completionFacade;
+
     @Resource
     private CompletionDomainService completionDomainService;
     
     @Operation(summary = "Creates a completion for the chat message")
     @PostMapping("/v1/completions")
-    public SingleResponse<CompletionDTO> completions(@RequestBody CompletionCreateCmd completionCreateCmd) {
-        return completionFacade.completions(completionCreateCmd);
+    public Mono<SingleResponse<CompletionDTO>> completions(@RequestBody CompletionCreateCmd completionCreateCmd) {
+        return Mono.just(completionFacade.completions(completionCreateCmd));
     }
     
     @Resource
@@ -54,5 +58,11 @@ public class CompletionController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @PostMapping("/data")
+    public Mono<SingleResponse<CompletionDTO>> getData(@RequestBody CompletionCreateCmd completionCreateCmd) {
+        return Mono.just(completionFacade.completions(completionCreateCmd));
+//        return completionCreateCmd.map(data -> openAiClient.createCompletion(data).toString());
     }
 }

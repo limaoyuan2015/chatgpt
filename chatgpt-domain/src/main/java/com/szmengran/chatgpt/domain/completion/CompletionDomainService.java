@@ -37,14 +37,14 @@ public class CompletionDomainService {
     private CompletionRepository completionRepository;
     
     @SneakyThrows
-    public CompletionDTO completion(CompletionCreateCmd completionCreateCmd) {
+    public CompletionDTO completions(CompletionCreateCmd completionCreateCmd) {
         Future<CompletionDTO> future = executorService.submit(() -> {
             return completionRepository.createCompletion(completionCreateCmd);
         });
         return future.get();
     }
     
-    public void completionsStream(CompletionCreateCmd completionCreateCmd, HttpServletResponse httpServletResponse) {
+    public void completionsStreams(CompletionCreateCmd completionCreateCmd, HttpServletResponse httpServletResponse) {
         httpServletResponse.setContentType("text/event-stream");
         httpServletResponse.setCharacterEncoding("UTF-8");
         executorService.submit(() -> {
