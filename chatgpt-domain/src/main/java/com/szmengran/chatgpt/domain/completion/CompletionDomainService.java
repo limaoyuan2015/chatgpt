@@ -50,6 +50,7 @@ public class CompletionDomainService {
                 return completionRepository.completionsStream(completionCreateCmd).body().asInputStream();
             }
             catch (IOException e) {
+                log.error("IOException:", e);
                 throw new RuntimeException(e);
             }
         }).subscribe(inputStream -> {
@@ -58,7 +59,7 @@ public class CompletionDomainService {
                 httpServletResponse.flushBuffer();
             }
             catch (IOException e) {
-                throw new RuntimeException(e);
+                log.error("IOException:", e);
             }
         });
     }
