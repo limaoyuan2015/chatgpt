@@ -4,6 +4,7 @@ import com.szmengran.chatgpt.dto.OpenAiResponse;
 import com.szmengran.chatgpt.dto.audio.AudioCO;
 import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCreateCmd;
+import com.szmengran.chatgpt.dto.completion.CompletionCO;
 import com.szmengran.chatgpt.dto.completion.CompletionDTO;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import com.szmengran.chatgpt.dto.edit.EditCO;
@@ -54,11 +55,8 @@ public interface OpenAiClient {
     Model getModel(@PathVariable("modelId") String modelId);
 
     @PostMapping(value = "/v1/completions", consumes = "application/json", produces = "application/json")
-    CompletionDTO createCompletion(@RequestBody CompletionCreateCmd request);
-    
-    @PostMapping(value = "/v1/completions", consumes = "application/json", produces = "application/json")
-    Mono<CompletionDTO> createCompletion2(@RequestBody Mono<CompletionCreateCmd> request);
-    
+    CompletionCO createCompletion(@RequestBody CompletionCreateCmd request);
+
     @PostMapping(value = "/v1/completions", consumes = "application/json", produces = "application/json")
     Response createCompletionStream(@RequestBody CompletionCreateCmd request);
     

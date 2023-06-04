@@ -1,8 +1,10 @@
 package com.szmengran.chatgpt.wap;
 
+import java.security.Principal;
+
 import com.szmengran.chatgpt.domain.completion.CompletionDomainService;
-import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
-import com.szmengran.chatgpt.dto.completion.CompletionDTO;
+import com.szmengran.chatgpt.dto.completion.CompletionCO;
+import com.szmengran.chatgpt.dto.completion.CompletionCmd;
 import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,14 +32,16 @@ public class CompletionController {
     
     @Operation(summary = "Creates a completion for the chat message")
     @PostMapping("/v1/completions")
-    public Mono<SingleResponse<CompletionDTO>> completions(@RequestBody CompletionCreateCmd completionCreateCmd) {
-        return Mono.just(SingleResponse.of(completionDomainService.completions(completionCreateCmd)));
+    public Mono<SingleResponse<CompletionCO>> completions(@RequestBody CompletionCmd completionCmd, Principal principal) {
+        completionCmd.setUsername(principal.getName());
+        return Mono.just(SingleResponse.of(completionDomainService.completions(completionCmd)));
     }
 
 
     @Operation(summary = "Creates a completion for the chat message")
     @PostMapping(value = "/v1/completionsStream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public void completionsStreams(HttpServletResponse httpServletResponse, @RequestBody CompletionCreateCmd completionCreateCmd) {
-        completionDomainService.completionsStreams(completionCreateCmd, httpServletResponse);
+    public void completionsStreams(HttpServletResponse httpServletResponse, @RequestBody CompletionCmd completionCmd, Principal principal) {
+        completionCmd.setUsername(principal.getName());
+        completionDomainService.completionsStreams(completionCmd, httpServletResponse);
     }
 }

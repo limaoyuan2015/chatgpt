@@ -17,10 +17,10 @@ import java.util.Map;
  *
  * https://platform.openai.com/docs/api-reference/completions/create
  */
-@Builder
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @JsonInclude(Include.NON_NULL)
 public class CompletionCreateCmd extends Command {
 

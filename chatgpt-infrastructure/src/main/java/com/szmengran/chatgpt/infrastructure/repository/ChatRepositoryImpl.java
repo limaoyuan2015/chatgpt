@@ -106,6 +106,7 @@ public class ChatRepositoryImpl implements ChatRepository {
     public List<ChatDetail> getChatListById(final String chatId) {
         LambdaQueryWrapper<ChatDetail> queryWrapper = new LambdaQueryWrapper();
         queryWrapper.eq(ChatDetail::getChatId, chatId);
+        queryWrapper.last("order by create_time desc limit 5");
         return chatDetailMapper.selectList(queryWrapper);
     }
 }

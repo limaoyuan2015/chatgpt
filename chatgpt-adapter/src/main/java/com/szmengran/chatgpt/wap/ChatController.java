@@ -38,7 +38,8 @@ public class ChatController {
     
     @Operation(summary = "Creates a completion for the chat message")
     @PostMapping("/v1/chat/completionStream")
-    public void chatStream(@RequestBody ChatCmd chatCmd, HttpServletResponse httpServletResponse) {
+    public void chatStream(@RequestBody ChatCmd chatCmd, HttpServletResponse httpServletResponse, Principal principal) {
+        chatCmd.setUsername(principal.getName());
         chatDomainService.chatStream(chatCmd, httpServletResponse);
     }
     

@@ -11,7 +11,7 @@ import java.util.List;
  * https://beta.openai.com/docs/api-reference/completions/create
  */
 @Data
-public class CompletionCO {
+public class CompletionCO extends CompletionCOExt {
     /**
      * A unique id assigned to this completion.
      */

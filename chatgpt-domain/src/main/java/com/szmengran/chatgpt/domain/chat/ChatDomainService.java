@@ -3,6 +3,8 @@ package com.szmengran.chatgpt.domain.chat;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
+import java.util.Stack;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -15,6 +17,7 @@ import com.szmengran.chatgpt.domain.entity.ChatDetail;
 import com.szmengran.chatgpt.domain.entity.ChatTitle;
 import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
+import com.szmengran.chatgpt.dto.chat.ChatMessage;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import feign.Response;
 import jakarta.annotation.Resource;
@@ -25,6 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 import reactor.core.publisher.Mono;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.StreamUtils;
 
 /**
@@ -47,7 +51,10 @@ public class ChatDomainService {
     @SneakyThrows
     public ChatCO chat(ChatCmd chatCmd) {
         Assembler.converter(chatCmd, chatGPTProperties);
+        String question = chatCmd.getMessages().get(0).getContent();
+        setChatContext(chatCmd);
         ChatCO chatCO = chatRepository.chat(chatCmd);
+        chatCmd.getMessages().get(0).setContent(question);
         ChatDetail chatDetail = Assembler.toChatDetail(chatCmd, chatCO);
         chatRepository.addChatDetail(chatDetail);
         if (StringUtils.isBlank(chatCmd.getChatId())) {
@@ -55,6 +62,25 @@ public class ChatDomainService {
             chatRepository.addChatTitle(chatTitle);
         }
         return chatCO;
+    }
+
+    private void setChatContext(ChatCmd chatCmd) {
+        if (StringUtils.isBlank(chatCmd.getChatId())) {
+            return ;
+        }
+        List<ChatDetail> list = chatRepository.getChatListById(chatCmd.getChatId());
+        Stack<ChatDetail> stack = new Stack<>();
+        list.forEach(item -> {
+            stack.push(item);
+        });
+        StringBuffer stringBuffer = new StringBuffer();
+        stack.forEach(item -> {
+            stringBuffer.append(item.getQuestion()).append("\n").append(item.getAnswer()).append("\n");
+        });
+        ChatMessage chatMessage = chatCmd.getMessages().get(0);
+        Assert.isNull(chatMessage, "question can't be null");
+        String question = chatMessage.getContent();
+        chatMessage.setContent(stringBuffer.append(question).toString());
     }
 
     public void chatStream(ChatCmd chatCmd, HttpServletResponse httpServletResponse) {
