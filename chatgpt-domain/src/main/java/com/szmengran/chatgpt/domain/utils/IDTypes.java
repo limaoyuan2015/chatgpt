@@ -8,6 +8,8 @@ package com.szmengran.chatgpt.domain.utils;
 public interface IDTypes {
     
     public static final String CHAT_TITLE = "ct";
+    public static final String COMPLETION_TITLE = "cot";
     public static final String CHAT_DETAIL = "cd";
-    
+    public static final String COMPLETION_DETAIL = "cod";
+
 }

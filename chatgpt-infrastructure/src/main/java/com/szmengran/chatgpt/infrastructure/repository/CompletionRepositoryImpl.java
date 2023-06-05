@@ -55,10 +55,10 @@ public class CompletionRepositoryImpl implements CompletionRepository {
         Assembler.converter(completionCmd, chatGPTProperties);
         CompletionCreateCmd completionCreateCmd = Converter.INSTANCE.toCompletionCreateCmd(completionCmd);
         CompletionCO completionCO = openAiClient.createCompletion(completionCreateCmd);
-        String chatDetailId = completionCO.getId();
+        String chatDetailId = IDUtils.getSnowId(IDTypes.COMPLETION_DETAIL);
         completionCO.setCompletionDetailId(chatDetailId);
         if (StringUtils.isBlank(completionCO.getCompletionId())) {
-            String completionId = IDUtils.getSnowId(IDTypes.CHAT_TITLE);
+            String completionId = IDUtils.getSnowId(IDTypes.COMPLETION_TITLE);
             String question = completionCO.getChoices().get(0).getText();
             String title = question.length() > 20 ? question.substring(0, 20) : question;
             completionCO.setCompletionId(completionId);
