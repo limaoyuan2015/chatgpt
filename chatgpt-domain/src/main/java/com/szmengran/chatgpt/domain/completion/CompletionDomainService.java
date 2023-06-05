@@ -73,7 +73,7 @@ public class CompletionDomainService {
             stringBuffer.append(item.getQuestion()).append("\n").append(item.getAnswer()).append("\n");
         });
         String question = completionCmd.getPrompt();
-        Assert.isNull(question, "question can't be null");
+        Assert.notNull(question, "question can't be null");
         completionCmd.setPrompt(stringBuffer.append(question).toString());
     }
 

@@ -5,6 +5,8 @@ import com.szmengran.chatgpt.domain.entity.ChatTitle;
 import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
 import com.szmengran.chatgpt.dto.chat.ChatCreateCmd;
+import com.szmengran.chatgpt.dto.completion.CompletionCmd;
+import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -23,4 +25,6 @@ public interface Converter {
     ChatTitle toChatTitle(ChatCO chatCO);
     
     ChatCreateCmd toChatCreateCmd(ChatCmd chatCmd);
+
+    CompletionCreateCmd toCompletionCreateCmd(CompletionCmd completionCmd);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.szmengran.chatgpt.domain.entity.CompletionDetail;
 import com.szmengran.chatgpt.domain.entity.CompletionTitle;
 import com.szmengran.chatgpt.dto.completion.CompletionCO;
+import com.szmengran.chatgpt.dto.completion.CompletionCmd;
 import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
 import feign.Response;
 
@@ -26,12 +27,12 @@ public interface CompletionRepository {
     
     /** 
      * @description: 实现文章写作、翻译、代码自动补全等功能
-     * @param completionCreateCmd
+     * @param completionCmd
      * @return: com.szmengran.chatgpt.dto.completion.CompletionDTO 
      * @author MaoYuan.Li
      * @date: 2023/5/17 18:17
      */
-    CompletionCO createCompletion(final CompletionCreateCmd completionCreateCmd);
+    CompletionCO createCompletion(final CompletionCmd completionCmd);
 
     /**
      * 聊天标题
