@@ -55,14 +55,16 @@ public class CompletionRepositoryImpl implements CompletionRepository {
         Assembler.converter(completionCmd, chatGPTProperties);
         CompletionCreateCmd completionCreateCmd = Converter.INSTANCE.toCompletionCreateCmd(completionCmd);
         CompletionCO completionCO = openAiClient.createCompletion(completionCreateCmd);
-        String chatDetailId = IDUtils.getSnowId(IDTypes.COMPLETION_DETAIL);
-        completionCO.setCompletionDetailId(chatDetailId);
-        if (StringUtils.isBlank(completionCO.getCompletionId())) {
+        String completionDetailId = IDUtils.getSnowId(IDTypes.COMPLETION_DETAIL);
+        completionCO.setCompletionDetailId(completionDetailId);
+        if (StringUtils.isEmpty(completionCmd.getCompletionId())) {
             String completionId = IDUtils.getSnowId(IDTypes.COMPLETION_TITLE);
             String question = completionCO.getChoices().get(0).getText();
             String title = question.length() > 20 ? question.substring(0, 20) : question;
             completionCO.setCompletionId(completionId);
             completionCO.setTitle(title);
+        } else {
+            completionCO.setCompletionId(completionCmd.getCompletionId());
         }
         return completionCO;
     }
@@ -87,7 +89,7 @@ public class CompletionRepositoryImpl implements CompletionRepository {
     @Override
     public List<CompletionDetail> getCompletionListById(String completionId) {
         LambdaQueryWrapper<CompletionDetail> queryWrapper = new LambdaQueryWrapper();
-        queryWrapper.eq(CompletionDetail::getCompletionDetailId, completionId);
+        queryWrapper.eq(CompletionDetail::getCompletionId, completionId);
         queryWrapper.last("order by create_time desc limit 5");
         return completionDetailMapper.selectList(queryWrapper);
     }

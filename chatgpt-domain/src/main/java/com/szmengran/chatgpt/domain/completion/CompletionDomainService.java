@@ -56,7 +56,7 @@ public class CompletionDomainService {
             CompletionTitle completionTitle = Assembler.toCompletionTitle(completionCmd, completionCO);
             completionRepository.addCompletionTitle(completionTitle);
         }
-        return completionRepository.createCompletion(completionCmd);
+        return completionCO;
     }
 
     private void setChatContext(CompletionCmd completionCmd) {
@@ -69,9 +69,10 @@ public class CompletionDomainService {
             stack.push(item);
         });
         StringBuffer stringBuffer = new StringBuffer();
-        stack.forEach(item -> {
+        while (!stack.isEmpty()) {
+            CompletionDetail item = stack.pop();
             stringBuffer.append(item.getQuestion()).append("\n").append(item.getAnswer()).append("\n");
-        });
+        }
         String question = completionCmd.getPrompt();
         Assert.notNull(question, "question can't be null");
         completionCmd.setPrompt(stringBuffer.append(question).toString());

@@ -15,6 +15,7 @@ import com.szmengran.chatgpt.domain.chat.repository.ChatRepository;
 import com.szmengran.chatgpt.domain.config.ChatGPTProperties;
 import com.szmengran.chatgpt.domain.entity.ChatDetail;
 import com.szmengran.chatgpt.domain.entity.ChatTitle;
+import com.szmengran.chatgpt.domain.entity.CompletionDetail;
 import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
 import com.szmengran.chatgpt.dto.chat.ChatMessage;
@@ -74,9 +75,10 @@ public class ChatDomainService {
             stack.push(item);
         });
         StringBuffer stringBuffer = new StringBuffer();
-        stack.forEach(item -> {
+        while (!stack.isEmpty()) {
+            ChatDetail item = stack.pop();
             stringBuffer.append(item.getQuestion()).append("\n").append(item.getAnswer()).append("\n");
-        });
+        }
         ChatMessage chatMessage = chatCmd.getMessages().get(0);
         Assert.isNull(chatMessage, "question can't be null");
         String question = chatMessage.getContent();

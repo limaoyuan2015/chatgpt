@@ -7,9 +7,9 @@ package com.szmengran.chatgpt.domain.utils;
  */
 public interface IDTypes {
     
-    public static final String CHAT_TITLE = "ct";
-    public static final String COMPLETION_TITLE = "cot";
-    public static final String CHAT_DETAIL = "cd";
-    public static final String COMPLETION_DETAIL = "cod";
+    public static final String CHAT_TITLE = "100";
+    public static final String COMPLETION_TITLE = "101";
+    public static final String CHAT_DETAIL = "200";
+    public static final String COMPLETION_DETAIL = "201";
 
 }

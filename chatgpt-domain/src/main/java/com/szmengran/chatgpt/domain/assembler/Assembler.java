@@ -52,8 +52,8 @@ public class Assembler {
     }
 
     public static CompletionDetail toCompletionDetail(CompletionCmd completionCmd, CompletionCO completionCO) {
-        return CompletionDetail.builder().completionDetailId(completionCO.getId())
-                .completionId(completionCmd.getCompletionId())
+        return CompletionDetail.builder().completionDetailId(completionCO.getCompletionDetailId())
+                .completionId(completionCO.getCompletionId())
                 .question(completionCmd.getPrompt())
                 .answer(completionCO.getChoices().get(0).getText())
                 .promptTokens(completionCO.getUsage().getPromptTokens())
@@ -70,7 +70,7 @@ public class Assembler {
     }
 
     public static CompletionTitle toCompletionTitle(CompletionCmd completionCmd, CompletionCO completionCO) {
-        return CompletionTitle.builder().completionId(completionCmd.getCompletionId())
+        return CompletionTitle.builder().completionId(completionCO.getCompletionId())
                 .username(completionCmd.getUsername())
                 .title(completionCO.getTitle())
                 .build();

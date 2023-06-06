@@ -55,13 +55,15 @@ public class ChatRepositoryImpl implements ChatRepository {
         ChatCO chatCO = openAiClient.chat(chatCreateCmd);
         String chatDetailId = IDUtils.getSnowId(IDTypes.CHAT_DETAIL);
         chatCO.setChatDetailId(chatDetailId);
-        if (StringUtils.isBlank(chatCmd.getChatId())) {
+        if (StringUtils.isEmpty(chatCmd.getChatId())) {
             String chatId = IDUtils.getSnowId(IDTypes.CHAT_TITLE);
             List<ChatMessage> list = chatCmd.getMessages();
             String question = list.get(0).getContent();
             String title = question.length() > 20 ? question.substring(0, 20) : question;
             chatCO.setChatId(chatId);
             chatCO.setTitle(title);
+        } else {
+            chatCO.setChatId(chatCmd.getChatId());
         }
 
         return chatCO;
