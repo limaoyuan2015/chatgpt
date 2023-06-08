@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  *
  * @author Maoyuan.Li
  */
-@EnableFeignClients(basePackages = {"com.szmengran.chatgpt.infrastructure.openai"})
+@EnableFeignClients(basePackages = {"com.szmengran.chatgpt.infrastructure.openai", "com.szmengran.chatgpt.infrastructure.oauth2.client"})
 @SpringBootApplication(scanBasePackages = {"com.szmengran.chatgpt", "com.alibaba.cola"})
 public class Application {
 
