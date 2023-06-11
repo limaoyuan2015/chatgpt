@@ -1,13 +1,13 @@
 package com.szmengran.chatgpt.infrastructure.openai;
 
 import com.szmengran.chatgpt.domain.config.ChatGPTProperties;
+import com.szmengran.chatgpt.infrastructure.oauth2.utils.Constants;
 import feign.Logger;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
 
 /**
  * @Author MaoYuan.Li
@@ -15,14 +15,21 @@ import org.springframework.http.MediaType;
  * @Version 1.0
  */
 @Configuration
-public class FeignClientConfiguration implements RequestInterceptor {
+public class OpenAiClientConfiguration implements RequestInterceptor {
     
     @Resource
     private ChatGPTProperties chatGPTProperties;
     
     @Override
     public void apply(final RequestTemplate requestTemplate) {
+        if (filter(requestTemplate)) {
+            return;
+        }
         requestTemplate.header("Authorization", "Bearer "+chatGPTProperties.getSecretKey());
+    }
+
+    private boolean filter(final RequestTemplate requestTemplate) {
+        return requestTemplate.url().contains(Constants.OAUTH2_URL);
     }
 
     @Bean

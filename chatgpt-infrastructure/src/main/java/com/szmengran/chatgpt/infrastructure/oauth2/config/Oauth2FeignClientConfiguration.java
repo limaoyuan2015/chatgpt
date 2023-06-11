@@ -2,6 +2,7 @@ package com.szmengran.chatgpt.infrastructure.oauth2.config;
 
 import java.util.Base64;
 
+import com.szmengran.chatgpt.infrastructure.oauth2.utils.Constants;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import jakarta.annotation.Resource;
@@ -22,9 +23,15 @@ public class Oauth2FeignClientConfiguration implements RequestInterceptor {
     
     @Override
     public void apply(final RequestTemplate requestTemplate) {
+        if (!filter(requestTemplate)) {
+            return;
+        }
         String authorization = "Basic " + Base64.getEncoder().encodeToString((clientPrincipalProperties.getUsername() + ":" + clientPrincipalProperties.getPassword()).getBytes());
         requestTemplate.header("Authorization", authorization);
-        requestTemplate.header("content-type", MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+    }
+
+    private boolean filter(final RequestTemplate requestTemplate) {
+        return requestTemplate.url().contains(Constants.OAUTH2_URL);
     }
 
 }

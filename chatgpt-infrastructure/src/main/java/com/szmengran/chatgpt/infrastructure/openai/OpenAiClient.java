@@ -27,8 +27,8 @@ import com.szmengran.chatgpt.dto.moderation.ModerationCO;
 import com.szmengran.chatgpt.dto.moderation.ModerationQuery;
 import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,12 +37,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-@FeignClient(name="openai", url="${openai.url}", configuration = FeignClientConfiguration.class)
+@FeignClient(name="openai", url="${openai.url}")
+@Import(OpenAiClientConfiguration.class)
 public interface OpenAiClient {
     
     @GetMapping("/v1/models")
