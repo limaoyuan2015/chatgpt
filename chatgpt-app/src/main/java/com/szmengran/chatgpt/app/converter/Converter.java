@@ -4,6 +4,8 @@ import com.szmengran.chatgpt.dto.image.ImageCreateEditCmd;
 import com.szmengran.chatgpt.dto.image.ImageCreateEditCmdV2;
 import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmd;
 import com.szmengran.chatgpt.dto.image.ImageCreateVariationCmdV2;
+import com.szmengran.chatgpt.dto.user.TokenCO;
+import com.szmengran.chatgpt.infrastructure.oauth2.client.dto.TokenDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -19,4 +21,5 @@ public interface Converter {
     
     ImageCreateEditCmd converter(ImageCreateEditCmdV2 imageCreateEditCmdV2);
     ImageCreateVariationCmd converter(ImageCreateVariationCmdV2 imageCreateVariationCmdV2);
+    TokenCO toTokenCO(TokenDTO tokenDTO);
 }

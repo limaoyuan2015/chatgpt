@@ -1,8 +1,9 @@
 package com.szmengran.chatgpt.wap;
 
-import com.szmengran.chatgpt.infrastructure.oauth2.client.Oauth2Client;
-import com.szmengran.chatgpt.infrastructure.oauth2.client.dto.TokenDTO;
-import com.szmengran.chatgpt.infrastructure.oauth2.client.dto.TokenQueryCmd;
+import com.szmengran.chatgpt.api.UserFacade;
+import com.szmengran.chatgpt.dto.user.TokenCO;
+import com.szmengran.chatgpt.dto.user.TokenQueryCmd;
+import com.szmengran.chatgpt.infrastructure.oauth2.config.ClientPrincipalProperties;
 import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,12 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
 	@Resource
-	private Oauth2Client oauth2Client;
+	private UserFacade userFacade;
+
+	@Resource
+	private ClientPrincipalProperties clientPrincipalProperties;
 
 	@Operation(summary = "用户登录")
 	@PostMapping("/login")
-	public SingleResponse<TokenDTO> login(@RequestBody TokenQueryCmd tokenQueryCmd) {
-		TokenDTO tokenDTO = oauth2Client.getToken(tokenQueryCmd);
+	public SingleResponse<TokenCO> login(@RequestBody TokenQueryCmd tokenQueryCmd) {
+		tokenQueryCmd.setScope(clientPrincipalProperties.getScope());
+		TokenCO tokenDTO = userFacade.login(tokenQueryCmd);
 		return SingleResponse.of(tokenDTO);
 	}
 }

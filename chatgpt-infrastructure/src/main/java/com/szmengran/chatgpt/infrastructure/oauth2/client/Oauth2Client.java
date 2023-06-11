@@ -1,10 +1,9 @@
 package com.szmengran.chatgpt.infrastructure.oauth2.client;
 
+import com.szmengran.chatgpt.dto.user.TokenQueryCmd;
 import com.szmengran.chatgpt.infrastructure.oauth2.client.dto.TokenDTO;
-import com.szmengran.chatgpt.infrastructure.oauth2.client.dto.TokenQueryCmd;
 import com.szmengran.chatgpt.infrastructure.oauth2.config.Oauth2FeignClientConfiguration;
 import com.szmengran.chatgpt.infrastructure.oauth2.utils.Constants;
-import feign.Headers;
 import feign.QueryMap;
 
 import org.springframework.cloud.openfeign.FeignClient;

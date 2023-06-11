@@ -18,5 +18,6 @@ public class ClientPrincipalProperties {
 
 	private String username;
 	private String password;
+	private String scope;
 
 }
