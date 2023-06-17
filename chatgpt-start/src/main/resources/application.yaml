@@ -19,5 +19,6 @@ spring:
     import:
       - nacos:common.yaml
       - nacos:common-oauth2-resource-server.yaml
+      - nacos:common-dubbo.yaml
       - nacos:knife4j.yaml
       - nacos:chatgpt.yaml
