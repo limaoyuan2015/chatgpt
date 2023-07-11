@@ -1,13 +1,10 @@
 package com.szmengran.chatgpt.domain.chat;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.szmengran.chatgpt.domain.assembler.Assembler;
@@ -15,12 +12,9 @@ import com.szmengran.chatgpt.domain.chat.repository.ChatRepository;
 import com.szmengran.chatgpt.domain.config.ChatGPTProperties;
 import com.szmengran.chatgpt.domain.entity.ChatDetail;
 import com.szmengran.chatgpt.domain.entity.ChatTitle;
-import com.szmengran.chatgpt.domain.entity.CompletionDetail;
 import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
 import com.szmengran.chatgpt.dto.chat.ChatMessage;
-import com.szmengran.chatgpt.dto.completion.CompletionCreateCmd;
-import feign.Response;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;

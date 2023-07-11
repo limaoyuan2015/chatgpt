@@ -24,6 +24,9 @@ public class Assembler {
         if (StringUtils.isBlank(chatCmd.getModel())) {
             chatCmd.setModel(chatGPTProperties.getModel().get(ModelType.CHAT));
         }
+        if (chatCmd.getMaxTokens() == null || chatCmd.getMaxTokens() > 2000) {
+            chatCmd.setMaxTokens(chatGPTProperties.getMaxTokens());
+        }
 
         chatCmd.getMessages().forEach(chatMessage -> {
             if (StringUtils.isBlank(chatMessage.getRole())) {
@@ -36,6 +39,9 @@ public class Assembler {
     public static CompletionCmd converter(CompletionCmd completionCmd, ChatGPTProperties chatGPTProperties) {
         if (StringUtils.isBlank(completionCmd.getModel())) {
             completionCmd.setModel(chatGPTProperties.getModel().get(ModelType.COMPLETIONS));
+        }
+        if (completionCmd.getMaxTokens() == null || completionCmd.getMaxTokens() > 2000) {
+            completionCmd.setMaxTokens(chatGPTProperties.getMaxTokens());
         }
         return completionCmd;
     }
