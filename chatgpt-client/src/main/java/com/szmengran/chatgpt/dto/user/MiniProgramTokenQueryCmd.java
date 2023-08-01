@@ -3,6 +3,7 @@ package com.szmengran.chatgpt.dto.user;
 import com.szmengran.cola.dto.Query;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,19 +20,20 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class TokenQueryCmd extends Query {
-
+public class MiniProgramTokenQueryCmd extends Query {
+	
+	@Hidden
 	@Schema(description = "授权类型")
+	@NotNull(message = "授权类型不能为空")
 	private String grant_type;
 
-	@Schema(description = "用户名")
-	private String username;
-
-	@Schema(description = "密码")
-	private String password;
+	@Schema(description = "授权码")
+	@NotNull(message = "授权码不能为空")
+	private String code;
 
 	@Hidden
 	@Schema(description = "授权范围")
+	@NotNull(message = "授权范围不能为空")
 	private String scope;
 
 }

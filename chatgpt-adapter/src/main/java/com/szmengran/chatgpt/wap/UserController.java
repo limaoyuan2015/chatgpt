@@ -2,6 +2,7 @@ package com.szmengran.chatgpt.wap;
 
 import com.szmengran.authorization.dto.cqe.UserRegisterCmd;
 import com.szmengran.chatgpt.app.user.UserServiceImpl;
+import com.szmengran.chatgpt.dto.user.MiniProgramTokenQueryCmd;
 import com.szmengran.chatgpt.dto.user.TokenCO;
 import com.szmengran.chatgpt.dto.user.TokenQueryCmd;
 import com.szmengran.chatgpt.infrastructure.oauth2.config.ClientPrincipalProperties;
@@ -11,6 +12,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,12 +32,24 @@ public class UserController {
 
 	@Resource
 	private ClientPrincipalProperties clientPrincipalProperties;
-
+	
+	@PreAuthorize("permitAll()")
 	@Operation(summary = "用户登录")
 	@PostMapping("/login")
-	public SingleResponse<TokenCO> login(@RequestBody TokenQueryCmd tokenQueryCmd) {
+	public SingleResponse<TokenCO> passwordLogin(@RequestBody TokenQueryCmd tokenQueryCmd) {
 		tokenQueryCmd.setScope(clientPrincipalProperties.getScope());
 		TokenCO tokenCO = userService.login(tokenQueryCmd);
+		return SingleResponse.of(tokenCO);
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
+	@Operation(summary = "小程序用户登录")
+	@PostMapping("/login/{code}")
+	public SingleResponse<TokenCO> miniProgramLogin(@PathVariable("code") String code, @RequestBody MiniProgramTokenQueryCmd miniProgramTokenQueryCmd) {
+		miniProgramTokenQueryCmd.setScope(clientPrincipalProperties.getScope());
+		miniProgramTokenQueryCmd.setCode(code);
+		miniProgramTokenQueryCmd.setGrant_type("wechat_mini_program");
+		TokenCO tokenCO = userService.miniProgramLogin(miniProgramTokenQueryCmd);
 		return SingleResponse.of(tokenCO);
 	}
 

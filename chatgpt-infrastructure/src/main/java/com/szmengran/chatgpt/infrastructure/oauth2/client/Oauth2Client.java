@@ -1,5 +1,6 @@
 package com.szmengran.chatgpt.infrastructure.oauth2.client;
 
+import com.szmengran.chatgpt.dto.user.MiniProgramTokenQueryCmd;
 import com.szmengran.chatgpt.dto.user.TokenQueryCmd;
 import com.szmengran.chatgpt.infrastructure.oauth2.client.dto.TokenDTO;
 import com.szmengran.chatgpt.infrastructure.oauth2.config.Oauth2FeignClientConfiguration;
@@ -17,4 +18,7 @@ public interface Oauth2Client {
 
 	@PostMapping(value = Constants.OAUTH2_URL, produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	TokenDTO getToken(@QueryMap TokenQueryCmd tokenQueryCmd);
+	
+	@PostMapping(value = Constants.OAUTH2_URL, produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	TokenDTO getMiniProgramToken(@QueryMap MiniProgramTokenQueryCmd miniProgramTokenQueryCmd);
 }
