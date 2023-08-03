@@ -74,7 +74,7 @@ public class ChatDomainService {
             stringBuffer.append(item.getQuestion()).append("\n").append(item.getAnswer()).append("\n");
         }
         ChatMessage chatMessage = chatCmd.getMessages().get(0);
-        Assert.isNull(chatMessage, "question can't be null");
+        Assert.notNull(chatMessage, "question can't be null");
         String question = chatMessage.getContent();
         chatMessage.setContent(stringBuffer.append(question).toString());
     }
