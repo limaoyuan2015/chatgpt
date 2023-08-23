@@ -10,6 +10,7 @@ import com.szmengran.chatgpt.dto.chat.ChatCO;
 import com.szmengran.chatgpt.dto.chat.ChatCmd;
 import com.szmengran.chatgpt.dto.chat.ChatCreateCmd;
 import com.szmengran.chatgpt.dto.chat.ChatMessage;
+import com.szmengran.chatgpt.dto.chat.ChatMessageRole;
 import com.szmengran.chatgpt.infrastructure.assembler.Assembler;
 import com.szmengran.chatgpt.infrastructure.openai.OpenAiClient;
 import com.szmengran.chatgpt.infrastructure.repository.mapper.ChatDetailMapper;
@@ -58,10 +59,14 @@ public class ChatRepositoryImpl implements ChatRepository {
         if (StringUtils.isEmpty(chatCmd.getChatId())) {
             String chatId = IDUtils.getSnowId(IDTypes.CHAT_TITLE);
             List<ChatMessage> list = chatCmd.getMessages();
-            String question = list.get(0).getContent();
-            String title = question.length() > 20 ? question.substring(0, 20) : question;
+            list.forEach(chatMessage -> {
+                if (ChatMessageRole.USER.value().equals(chatMessage.getRole())) {
+                    String question = chatMessage.getContent();
+                    String title = question.length() > 20 ? question.substring(0, 20) : question;
+                    chatCO.setTitle(title);
+                }
+            });
             chatCO.setChatId(chatId);
-            chatCO.setTitle(title);
         } else {
             chatCO.setChatId(chatCmd.getChatId());
         }
