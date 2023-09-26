@@ -1,14 +1,12 @@
 package com.szmengran.chatgpt.app.user;
 
 import com.szmengran.authorization.api.UserFacade;
+import com.szmengran.authorization.dto.TokenCO;
+import com.szmengran.authorization.dto.cqe.MiniProgramTokenQueryCmd;
+import com.szmengran.authorization.dto.cqe.TokenQueryCmd;
 import com.szmengran.authorization.dto.cqe.UserRegisterCmd;
 import com.szmengran.chatgpt.api.UserService;
-import com.szmengran.chatgpt.app.converter.Converter;
-import com.szmengran.chatgpt.dto.user.MiniProgramTokenQueryCmd;
-import com.szmengran.chatgpt.dto.user.TokenCO;
-import com.szmengran.chatgpt.dto.user.TokenQueryCmd;
-import com.szmengran.chatgpt.infrastructure.oauth2.client.Oauth2Client;
-import com.szmengran.chatgpt.infrastructure.oauth2.client.dto.TokenDTO;
+import com.szmengran.chatgpt.infrastructure.oauth2.config.ClientPrincipalProperties;
 import com.szmengran.cola.dto.Command;
 import com.szmengran.cola.dto.Response;
 import jakarta.annotation.Resource;
@@ -28,18 +26,22 @@ public class UserServiceImpl implements UserService {
 	private UserFacade userFacade;
 
 	@Resource
-	private Oauth2Client oauth2Client;
-	
+	private ClientPrincipalProperties properties;
+
 	@Override
 	public TokenCO login(final TokenQueryCmd tokenQueryCmd) {
-		TokenDTO tokenDTO = oauth2Client.getToken(tokenQueryCmd);
-		return Converter.INSTANCE.toTokenCO(tokenDTO);
+		tokenQueryCmd.setClientId(properties.getClientId());
+		tokenQueryCmd.setClientSecret(properties.getClientSecret());
+		tokenQueryCmd.setScope(properties.getScope());
+		return userFacade.login(tokenQueryCmd);
 	}
 	
 	@Override
 	public TokenCO miniProgramLogin(MiniProgramTokenQueryCmd miniProgramTokenQueryCmd) {
-		TokenDTO tokenDTO = oauth2Client.getMiniProgramToken(miniProgramTokenQueryCmd);
-		return Converter.INSTANCE.toTokenCO(tokenDTO);
+		miniProgramTokenQueryCmd.setClientId(properties.getClientId());
+		miniProgramTokenQueryCmd.setClientSecret(properties.getClientSecret());
+		miniProgramTokenQueryCmd.setScope(properties.getScope());
+		return userFacade.miniProgramLogin(miniProgramTokenQueryCmd);
 	}
 	
 	@Override

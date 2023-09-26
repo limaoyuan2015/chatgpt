@@ -16,8 +16,10 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "client.principal")
 public class ClientPrincipalProperties {
 
-	private String username;
-	private String password;
+	private String clientId;
+	private String clientSecret;
+
 	private String scope;
 
 }
+

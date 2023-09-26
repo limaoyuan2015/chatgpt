@@ -34,5 +34,9 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.szmengran</groupId>
+            <artifactId>shopoo-spring-authorization-server-client</artifactId>
+        </dependency>
     </dependencies>
 </project>
