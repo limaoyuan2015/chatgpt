@@ -1,10 +1,11 @@
 package com.szmengran.chatgpt.wap;
 
+import com.szmengran.authorization.dto.TokenCO;
+import com.szmengran.authorization.dto.cqe.MiniProgramTokenQueryCmd;
+import com.szmengran.authorization.dto.cqe.TokenQueryCmd;
 import com.szmengran.authorization.dto.cqe.UserRegisterCmd;
 import com.szmengran.chatgpt.app.user.UserServiceImpl;
-import com.szmengran.chatgpt.dto.user.MiniProgramTokenQueryCmd;
-import com.szmengran.chatgpt.dto.user.TokenCO;
-import com.szmengran.chatgpt.dto.user.TokenQueryCmd;
+import com.szmengran.chatgpt.dto.ChatGPTTokenCO;
 import com.szmengran.chatgpt.infrastructure.oauth2.config.ClientPrincipalProperties;
 import com.szmengran.cola.dto.Response;
 import com.szmengran.cola.dto.SingleResponse;
@@ -44,7 +45,6 @@ public class UserController {
 	public SingleResponse<TokenCO> miniProgramLogin(@PathVariable("code") String code, @RequestBody MiniProgramTokenQueryCmd miniProgramTokenQueryCmd) {
 		miniProgramTokenQueryCmd.setScope(clientPrincipalProperties.getScope());
 		miniProgramTokenQueryCmd.setCode(code);
-		miniProgramTokenQueryCmd.setGrant_type("wechat_mini_program");
 		TokenCO tokenCO = userService.miniProgramLogin(miniProgramTokenQueryCmd);
 		return SingleResponse.of(tokenCO);
 	}

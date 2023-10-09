@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.szmengran</groupId>
         <artifactId>chatgpt-parent</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -33,6 +33,10 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.szmengran</groupId>
+            <artifactId>shopoo-spring-authorization-server-client</artifactId>
         </dependency>
     </dependencies>
 </project>

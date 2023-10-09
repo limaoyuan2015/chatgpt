@@ -1,8 +1,8 @@
 package com.szmengran.chatgpt.api;
 
-import com.szmengran.chatgpt.dto.user.MiniProgramTokenQueryCmd;
-import com.szmengran.chatgpt.dto.user.TokenCO;
-import com.szmengran.chatgpt.dto.user.TokenQueryCmd;
+import com.szmengran.authorization.dto.TokenCO;
+import com.szmengran.authorization.dto.cqe.MiniProgramTokenQueryCmd;
+import com.szmengran.authorization.dto.cqe.TokenQueryCmd;
 import com.szmengran.cola.dto.Command;
 import com.szmengran.cola.dto.Response;
 
