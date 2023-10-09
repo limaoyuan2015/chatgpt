@@ -11,8 +11,6 @@ import com.szmengran.cola.dto.SingleResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +31,6 @@ public class UserController {
 	@Resource
 	private ClientPrincipalProperties clientPrincipalProperties;
 	
-	@PreAuthorize("permitAll()")
 	@Operation(summary = "用户登录")
 	@PostMapping("/login")
 	public SingleResponse<TokenCO> passwordLogin(@RequestBody TokenQueryCmd tokenQueryCmd) {
@@ -42,7 +39,6 @@ public class UserController {
 		return SingleResponse.of(tokenCO);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ANONYMOUS')")
 	@Operation(summary = "小程序用户登录")
 	@PostMapping("/login/{code}")
 	public SingleResponse<TokenCO> miniProgramLogin(@PathVariable("code") String code, @RequestBody MiniProgramTokenQueryCmd miniProgramTokenQueryCmd) {

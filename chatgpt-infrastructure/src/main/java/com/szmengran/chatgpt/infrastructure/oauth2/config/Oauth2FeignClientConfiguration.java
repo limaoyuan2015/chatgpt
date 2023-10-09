@@ -26,7 +26,7 @@ public class Oauth2FeignClientConfiguration implements RequestInterceptor {
         if (!filter(requestTemplate)) {
             return;
         }
-        String authorization = "Basic " + Base64.getEncoder().encodeToString((clientPrincipalProperties.getUsername() + ":" + clientPrincipalProperties.getPassword()).getBytes());
+        String authorization = "Basic " + Base64.getEncoder().encodeToString((clientPrincipalProperties.getClientId() + ":" + clientPrincipalProperties.getClientSecret()).getBytes());
         requestTemplate.header("Authorization", authorization);
     }
 
